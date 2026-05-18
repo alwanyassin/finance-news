@@ -1,0 +1,420 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { articles, getFeaturedArticles, getArticlesByCategory, timeAgo } from '../data/articles';
+
+const featured = getFeaturedArticles();
+const heroArticle = featured[0]!;
+// Grid articles: rows 1+2 (6 cards) beneath the top featured story
+const gridArticles = articles.slice(1, 7);
+// Row 1 and Row 2 of the grid
+const gridRow1 = gridArticles.slice(0, 3);
+const gridRow2 = gridArticles.slice(3, 6);
+
+const opinionArticles = getArticlesByCategory('opinion').slice(0, 1);
+const marketArticles = getArticlesByCategory('markets').slice(0, 4);
+const economyArticles = getArticlesByCategory('economy').slice(0, 3);
+const techArticles = getArticlesByCategory('technology').slice(0, 3);
+const latestArticles = articles.slice(0, 8);
+---
+
+<Layout
+  title="FinanceAsia — Asia-Pacific Financial Intelligence"
+  description="Real-time financial news, market data, and expert analysis from across the Asia-Pacific region."
+>
+  <!-- ===== HERO SECTION: 3/4 Top Stories + 1/4 Widget ===== -->
+  <section class="border-b border-[var(--color-nk-gray-300)]" aria-label="Top stories">
+    <div class="max-w-screen-xl mx-auto px-2 md:px-4 lg:px-6 py-0 md:py-4">
+      <div class="flex flex-col lg:flex-row gap-0 lg:divide-x lg:divide-[var(--color-nk-gray-200)]">
+
+        <!-- ── LEFT 3/4: Top Stories ── -->
+        <div class="flex-1 lg:pr-5 pb-5 lg:pb-0">
+
+          <!-- Top featured article -->
+          <article class="group pb-4 mb-4 border-b border-[var(--color-nk-gray-200)]" aria-label={heroArticle.title}>
+
+            <!-- MOBILE: Gambar fullscreen di atas, teks di bawah -->
+            <!-- DESKTOP: flex row — teks 50% kiri, gambar 50% kanan -->
+            <div class="flex flex-col sm:flex-row sm:gap-5">
+
+              <!-- Mobile-only image (full width, shown only on mobile) -->
+              <div class="sm:hidden mb-3 -mx-4 overflow-hidden bg-[var(--color-nk-gray-200)]">
+                <a href={`/article/${heroArticle.slug}`} tabindex="-1" aria-hidden="true">
+                  <img
+                    src={`${heroArticle.image}?w=800&q=85&auto=format&fit=crop`}
+                    alt={heroArticle.imageAlt}
+                    class="w-full h-[220px] object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="eager"
+                    width="800"
+                    height="220"
+                  />
+                </a>
+              </div>
+
+              <!-- Text column -->
+              <div class="flex-1 min-w-0 sm:w-1/2 order-2 sm:order-1">
+                <span class="category-tag mb-2 block">{heroArticle.category}</span>
+                <h1
+                  class="font-bold text-[var(--color-nk-gray-800)] leading-tight mb-2 group-hover:text-[var(--color-nk-red)] transition-colors"
+                  style="font-family: 'Playfair Display', Georgia, serif; font-size: clamp(1.1rem, 2vw, 1.45rem);"
+                >
+                  <a href={`/article/${heroArticle.slug}`}>{heroArticle.title}</a>
+                </h1>
+                <p class="text-nk-gray-600 text-sm leading-relaxed mb-3 hidden sm:block font-sans line-clamp-3">
+                  {heroArticle.excerpt}
+                </p>
+                <!-- Sub-links (related bullets) -->
+                <ul class="space-y-1.5 hidden md:block mb-3">
+                  {gridRow1.slice(0, 2).map(a => (
+                    <li class="flex items-start gap-2">
+                      <span class="flex-shrink-0 mt-1.5 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[7px] border-l-[var(--color-nk-red)]"></span>
+                      <a
+                        href={`/article/${a.slug}`}
+                        class="text-xs text-[var(--color-nk-gray-700)] hover:text-[var(--color-nk-red)] transition-colors leading-snug font-sans line-clamp-2"
+                      >
+                        {a.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <div class="flex items-center gap-2 text-xs text-[var(--color-nk-gray-500)] font-sans">
+                  {heroArticle.premium && (
+                    <span class="text-[0.6rem] font-bold text-[var(--color-nk-gold)] uppercase tracking-wide">Premium ·</span>
+                  )}
+                  <span>{timeAgo(heroArticle.publishedAt)}</span>
+                  <span>·</span>
+                  <span>{heroArticle.readTime} min read</span>
+                </div>
+              </div>
+
+              <!-- Desktop image column (hidden on mobile, shown sm+) — 50% width -->
+              <div class="hidden sm:block sm:w-1/2 flex-shrink-0 overflow-hidden bg-[var(--color-nk-gray-200)] self-start order-1 sm:order-2">
+                <a href={`/article/${heroArticle.slug}`} tabindex="-1" aria-hidden="true">
+                  <img
+                    src={`${heroArticle.image}?w=700&q=85&auto=format&fit=crop`}
+                    alt={heroArticle.imageAlt}
+                    class="w-full h-[180px] md:h-[210px] lg:h-[230px] object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="eager"
+                    width="600"
+                    height="230"
+                  />
+                </a>
+              </div>
+
+            </div>
+          </article>
+
+          <!-- 6 article cards: grid-cols-2 mobile (3 baris) → grid-cols-3 desktop (2 baris) -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-px bg-[var(--color-nk-gray-200)]">
+            {[...gridRow1, ...gridRow2].map(article => (
+              <article class="group bg-white p-2.5 sm:p-3 flex flex-col" aria-label={article.title}>
+                <a href={`/article/${article.slug}`} tabindex="-1" aria-hidden="true"
+                   class="block mb-2 overflow-hidden bg-[var(--color-nk-gray-200)] aspect-video">
+                  <img
+                    src={`${article.image}?w=400&q=80&auto=format&fit=crop`}
+                    alt={article.imageAlt}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                    width="400"
+                    height="225"
+                  />
+                </a>
+                <span class="category-tag mb-1 block">{article.category}</span>
+                <h3
+                  class="text-[0.78rem] sm:text-[0.85rem] font-bold text-[var(--color-nk-gray-800)] leading-snug mb-2 group-hover:text-[var(--color-nk-red)] transition-colors"
+                  style="font-family: 'Playfair Display', Georgia, serif;"
+                >
+                  <a href={`/article/${article.slug}`}>{article.title}</a>
+                </h3>
+                <div class="flex items-center gap-1 text-[0.62rem] text-nk-gray-500 font-sans mt-auto">
+                  <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  <span>Updated {timeAgo(article.publishedAt)}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <!-- ── RIGHT 1/4: Widget Panel ── -->
+        <aside class="lg:w-[260px] xl:w-[280px] shrink-0 lg:pl-5 pt-4 lg:pt-0 border-t border-nk-gray-200 lg:border-t-0" aria-label="Editorial widgets">
+          <div class="space-y-0 divide-y divide-nk-gray-200">
+
+            <!-- Widget 1: Editor's Picks (like "Policy Asia") -->
+            <div class="pb-4">
+              <h3 class="text-[0.75rem] font-bold text-nk-navy mb-2.5 font-sans tracking-wide text-center">Editor's Picks</h3>
+              {(() => {
+                const pick = articles.find(a => a.categorySlug === 'economy') ?? articles[1]!;
+                return (
+                  <article class="group" aria-label={pick.title}>
+                    <p class="text-[0.8rem] font-semibold text-nk-gray-800 leading-snug mb-2 group-hover:text-nk-red transition-colors text-center"
+                      style="font-family: 'Playfair Display', Georgia, serif;">
+                      <a href={`/article/${pick.slug}`}>{pick.title}</a>
+                    </p>
+                    <a href={`/article/${pick.slug}`} tabindex="-1" aria-hidden="true" class="block overflow-hidden bg-[var(--color-nk-gray-200)] mb-2">
+                      <img
+                        src={`${pick.image}?w=300&q=80&auto=format&fit=crop`}
+                        alt={pick.imageAlt}
+                        class="w-full h-[160px] object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                        width="280"
+                        height="160"
+                      />
+                    </a>
+                    {/* <p class="text-xs text-nk-gray-600 leading-relaxed font-sans text-center">
+                      {pick.excerpt.slice(0, 90)}…
+                    </p> */}
+                  </article>
+                );
+              })()}
+            </div>
+
+            <!-- Widget 2: Opinion -->
+            <div class="py-4">
+              {(() => {
+                const op = opinionArticles[0] ?? articles[8]!;
+                return (
+                  <article class="group h-[250px] flex flex-col justify-center" aria-label={op.title}>
+                    <span class="category-tag mb-1.5 block text-center">{op.category}</span>
+                    <p class="text-[0.8rem] font-semibold text-[var(--color-nk-gray-800)] leading-snug mb-2.5 group-hover:text-[var(--color-nk-red)] transition-colors text-center"
+                      style="font-family: 'Playfair Display', Georgia, serif;">
+                      <a href={`/article/${op.slug}`}>{op.title}</a>
+                    </p>
+                    <!-- Author row -->
+                    <div class="flex items-center gap-2 justify-center">
+                      <div class="w-7 h-7 rounded-full bg-[var(--color-nk-navy)] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                        {op.author.charAt(0)}
+                      </div>
+                      <span class="text-xs text-nk-gray-600 font-sans">{op.author}</span>
+                    </div>
+                  </article>
+                );
+              })()}
+            </div>
+
+            <!-- Widget 3: Video / Featured Insight -->
+            <div class="pt-4">
+              <div class="bg-nk-navy text-white p-0 overflow-hidden h-[250px] flex flex-col justify-center">
+                <p class="text-[0.6rem] font-bold uppercase tracking-widest text-white/60 text-center py-1.5 border-b border-white/10 font-sans">Video</p>
+                {(() => {
+                  const vid = articles[4] ?? articles[0]!;
+                  return (
+                    <a href={`/article/${vid.slug}`} class="group block relative">
+                      <img
+                        src={`${vid.image}?w=300&q=80&auto=format&fit=crop`}
+                        alt={vid.imageAlt}
+                        class="w-full h-[100px] object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                        loading="lazy"
+                        width="280"
+                        height="100"
+                      />
+                      <!-- Play button overlay -->
+                      <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/40 flex items-center justify-center group-hover:bg-white/30 transition-colors">
+                          <svg class="w-4 h-4 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                          </svg>
+                        </div>
+                      </div>
+                    </a>
+                  );
+                })()}
+                {(() => {
+                  const vid = articles[4] ?? articles[0]!;
+                  return (
+                    <div class="p-2.5">
+                      <p class="text-[0.72rem] font-semibold text-white leading-snug"
+                        style="font-family: 'Playfair Display', Georgia, serif;">
+                        <a href={`/article/${vid.slug}`} class="hover:text-[var(--color-nk-gold-light)] transition-colors">
+                          FinanceAsia Film: {vid.title.split(':')[0]}
+                        </a>
+                      </p>
+                    </div>
+                  );
+                })()}
+              </div>
+            </div>
+
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main content + sidebar -->
+  <div class="max-w-screen-xl mx-auto px-4 lg:px-6 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+      <!-- Main column -->
+      <div class="lg:col-span-8">
+
+        <!-- Latest News -->
+        <section class="mb-10" aria-labelledby="latest-heading">
+          <SectionHeader id="latest-heading" title="Latest News" href="/latest" />
+          <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {latestArticles.slice(0, 4).map(article => (
+              <ArticleCard article={article} variant="list" />
+            ))}
+          </div>
+        </section>
+
+        <!-- Divider ad-like band -->
+        <div class="my-8 bg-[var(--color-nk-gray-100)] border-y border-[var(--color-nk-gray-200)] px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <p class="text-[0.65rem] font-bold text-[var(--color-nk-gray-400)] uppercase tracking-widest mb-1 font-sans">Subscribe Today</p>
+            <p class="text-[var(--color-nk-navy)] font-bold text-lg" style="font-family: 'Playfair Display', Georgia, serif;">
+              Unlimited access to Asia's most trusted financial journalism.
+            </p>
+          </div>
+          <a
+            href="#subscribe"
+            class="flex-shrink-0 bg-[var(--color-nk-red)] text-white px-6 py-3 text-sm font-bold uppercase tracking-wide hover:bg-[var(--color-nk-red-dark)] transition-colors"
+          >
+            Try Free →
+          </a>
+        </div>
+
+        <!-- Markets section -->
+        <section class="mb-10" aria-labelledby="markets-heading">
+          <SectionHeader id="markets-heading" title="Markets" href="/category/markets" />
+          <div class="mt-5 space-y-5">
+            {marketArticles.map(article => (
+              <ArticleCard article={article} variant="list" />
+            ))}
+          </div>
+        </section>
+
+        <!-- Economy section -->
+        <section class="mb-10" aria-labelledby="economy-heading">
+          <SectionHeader id="economy-heading" title="Economy" href="/category/economy" />
+          <div class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {economyArticles.map(article => (
+              <ArticleCard article={article} variant="featured" />
+            ))}
+          </div>
+        </section>
+
+        <!-- Technology section -->
+        <section class="mb-10" aria-labelledby="tech-heading">
+          <SectionHeader id="tech-heading" title="Technology" href="/category/technology" />
+          <div class="mt-5 space-y-5">
+            {techArticles.map(article => (
+              <ArticleCard article={article} variant="list" />
+            ))}
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="lg:col-span-4" aria-label="Sidebar">
+        <div class="sticky top-20 space-y-8">
+
+          <!-- Most Read -->
+          <section aria-labelledby="most-read-heading">
+            <SectionHeader id="most-read-heading" title="Most Read" />
+            <div class="mt-4">
+              {latestArticles.slice(0, 5).map((article, idx) => (
+                <div class="flex gap-3 py-3 border-b border-[var(--color-nk-gray-200)] last:border-0 group">
+                  <span class="flex-shrink-0 text-3xl font-bold text-[var(--color-nk-gray-200)]" style="font-family: 'Playfair Display', Georgia, serif; line-height: 1;">
+                    {String(idx + 1).padStart(2, '0')}
+                  </span>
+                  <div>
+                    <span class="category-tag mb-1 block">{article.category}</span>
+                    <h4 class="text-sm font-semibold text-[var(--color-nk-gray-700)] leading-snug group-hover:text-[var(--color-nk-red)] transition-colors" style="font-family: 'Playfair Display', Georgia, serif;">
+                      <a href={`/article/${article.slug}`}>{article.title}</a>
+                    </h4>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <!-- Opinion -->
+          <section aria-labelledby="opinion-heading">
+            <SectionHeader id="opinion-heading" title="Opinion" href="/category/opinion" />
+            <div class="mt-4 space-y-5">
+              {opinionArticles.map(article => (
+                <ArticleCard article={article} variant="featured" />
+              ))}
+            </div>
+          </section>
+
+          <!-- Markets snapshot widget -->
+          <section aria-labelledby="markets-snapshot-heading" class="bg-[var(--color-nk-gray-100)] border border-[var(--color-nk-gray-200)] p-4">
+            <h3 id="markets-snapshot-heading" class="text-[0.65rem] font-bold uppercase tracking-widest text-nk-gray-600 mb-3 font-sans">Markets Snapshot</h3>
+            <div class="space-y-2">
+              {[
+                { name: 'Nikkei 225', value: '38,420.12', change: '+2.3%', up: true },
+                { name: 'Hang Seng', value: '18,210.44', change: '+1.8%', up: true },
+                { name: 'KOSPI', value: '2,740.88', change: '+1.5%', up: true },
+                { name: 'Brent Crude', value: '$82.40', change: '+0.7%', up: true },
+                { name: 'USD/JPY', value: '148.20', change: '-0.95%', up: false },
+                { name: 'Gold', value: '$2,318', change: '+0.3%', up: true },
+              ].map(item => (
+                <div class="flex items-center justify-between py-1.5 border-b border-[var(--color-nk-gray-200)] last:border-0">
+                  <span class="text-xs font-semibold text-[var(--color-nk-gray-700)] font-sans">{item.name}</span>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-[var(--color-nk-gray-800)] font-sans">{item.value}</span>
+                    <span class={`text-[0.65rem] font-bold font-sans ${item.up ? 'text-emerald-600' : 'text-red-500'}`}>
+                      {item.up ? '▲' : '▼'} {item.change}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p class="text-[0.6rem] text-[var(--color-nk-gray-400)] mt-2 font-sans">Data as of May 15, 2026 · 15 min delay</p>
+          </section>
+
+          <!-- Newsletter signup -->
+          <section class="bg-[var(--color-nk-navy)] text-white p-5" aria-labelledby="newsletter-heading">
+            <h3 id="newsletter-heading" class="text-base font-bold mb-1" style="font-family: 'Playfair Display', Georgia, serif;">Daily Briefing</h3>
+            <p class="text-white/70 text-xs mb-4 font-sans leading-relaxed">The key stories from Asian markets and economics, delivered every morning.</p>
+            <form class="space-y-2" aria-label="Newsletter signup form">
+              <input
+                type="email"
+                placeholder="Your email address"
+                class="w-full px-3 py-2.5 text-sm text-[var(--color-nk-gray-800)] font-sans focus:outline-none"
+                aria-label="Email address for Daily Briefing"
+              />
+              <button
+                type="submit"
+                class="w-full bg-[var(--color-nk-red)] text-white py-2.5 text-xs font-bold uppercase tracking-wide hover:bg-[var(--color-nk-red-dark)] transition-colors"
+              >
+                Sign Up Free
+              </button>
+            </form>
+          </section>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Bottom full-width section: ESG & Asia -->
+  <section class="bg-[var(--color-nk-gray-100)] border-t border-[var(--color-nk-gray-300)] py-10">
+    <div class="max-w-screen-xl mx-auto px-4 lg:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <!-- ESG -->
+        <div>
+          <SectionHeader title="ESG & Sustainability" href="/category/esg" />
+          <div class="mt-5 space-y-5">
+            {getArticlesByCategory('esg').map(article => (
+              <ArticleCard article={article} variant="list" />
+            ))}
+          </div>
+        </div>
+        <!-- Business -->
+        <div>
+          <SectionHeader title="Business" href="/category/business" />
+          <div class="mt-5 space-y-5">
+            {getArticlesByCategory('business').slice(0, 3).map(article => (
+              <ArticleCard article={article} variant="list" />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

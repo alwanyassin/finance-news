@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="404 — Page Not Found | FinanceAsia" description="The page you are looking for could not be found.">
+  <div class="min-h-[60vh] flex items-center justify-center px-4">
+    <div class="text-center max-w-md">
+      <span class="text-[var(--color-nk-red)] text-8xl font-bold block mb-2" style="font-family: 'Playfair Display', Georgia, serif;">404</span>
+      <h1 class="text-2xl font-bold text-[var(--color-nk-navy)] mb-3" style="font-family: 'Playfair Display', Georgia, serif;">
+        Page Not Found
+      </h1>
+      <p class="text-[var(--color-nk-gray-500)] font-sans mb-6 text-sm leading-relaxed">
+        The article or page you're looking for may have been moved, updated, or no longer exists.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a
+          href="/"
+          class="inline-block bg-[var(--color-nk-red)] text-white px-6 py-3 text-sm font-bold uppercase tracking-wide hover:bg-[var(--color-nk-red-dark)] transition-colors"
+        >
+          Return Home
+        </a>
+        <a
+          href="/category/markets"
+          class="inline-block border border-[var(--color-nk-gray-300)] text-[var(--color-nk-gray-600)] px-6 py-3 text-sm font-semibold uppercase tracking-wide hover:border-[var(--color-nk-red)] hover:text-[var(--color-nk-red)] transition-colors"
+        >
+          Browse Markets
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

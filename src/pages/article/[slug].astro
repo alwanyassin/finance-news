@@ -1,0 +1,290 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import { articles, getArticleBySlug, getRelatedArticles, formatDate, timeAgo } from '../../data/articles';
+
+export function getStaticPaths() {
+  return articles.map(article => ({
+    params: { slug: article.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const article = getArticleBySlug(slug!);
+
+if (!article) {
+  return Astro.redirect('/404');
+}
+
+const related = getRelatedArticles(article, 3);
+const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
+---
+
+<Layout
+  title={article.title}
+  description={article.excerpt}
+  ogImage={article.image}
+  article={true}
+>
+  <!-- Article breadcrumb -->
+  <div class="bg-[var(--color-nk-gray-100)] border-b border-[var(--color-nk-gray-200)]">
+    <div class="max-w-screen-xl mx-auto px-4 lg:px-6 py-2.5">
+      <nav aria-label="Breadcrumb">
+        <ol class="flex items-center gap-1.5 text-xs text-[var(--color-nk-gray-500)] font-sans">
+          <li><a href="/" class="hover:text-[var(--color-nk-red)] transition-colors">Home</a></li>
+          <li class="text-[var(--color-nk-gray-300)]">›</li>
+          <li><a href={`/category/${article.categorySlug}`} class="hover:text-[var(--color-nk-red)] transition-colors">{article.category}</a></li>
+          <li class="text-[var(--color-nk-gray-300)]">›</li>
+          <li class="text-[var(--color-nk-gray-700)] truncate max-w-xs">{article.title}</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Article main -->
+  <div class="max-w-screen-xl mx-auto px-4 lg:px-6 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+
+      <!-- Article content -->
+      <article class="lg:col-span-8" itemscope itemtype="https://schema.org/NewsArticle">
+
+        <!-- Category + Premium badge -->
+        <div class="flex items-center gap-2 mb-4">
+          <a
+            href={`/category/${article.categorySlug}`}
+            class="category-tag hover:text-[var(--color-nk-red-dark)] transition-colors"
+            itemprop="articleSection"
+          >
+            {article.category}
+          </a>
+          {article.region && (
+            <>
+              <span class="text-[var(--color-nk-gray-300)]">·</span>
+              <span class="text-[0.65rem] font-semibold text-[var(--color-nk-gray-400)] uppercase tracking-wide font-sans">{article.region}</span>
+            </>
+          )}
+          {article.premium && (
+            <span class="ml-auto text-[0.6rem] font-bold bg-[var(--color-nk-gold)] text-[var(--color-nk-navy)] px-2 py-0.5 uppercase tracking-wide">
+              Premium
+            </span>
+          )}
+        </div>
+
+        <!-- Headline -->
+        <h1
+          class="text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--color-nk-navy)] leading-tight mb-4"
+          style="font-family: 'Playfair Display', Georgia, serif;"
+          itemprop="headline"
+        >
+          {article.title}
+        </h1>
+
+        <!-- Excerpt/Deck -->
+        <p class="text-[var(--color-nk-gray-600)] text-base md:text-lg leading-relaxed mb-5 font-body border-l-2 border-[var(--color-nk-red)] pl-4">
+          {article.excerpt}
+        </p>
+
+        <!-- Byline -->
+        <div class="flex items-center justify-between py-4 border-y border-[var(--color-nk-gray-200)] mb-6">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full bg-[var(--color-nk-navy)] flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+              {article.author.charAt(0)}
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-[var(--color-nk-gray-800)] font-sans" itemprop="author">{article.author}</p>
+              <div class="flex items-center gap-1.5 text-xs text-[var(--color-nk-gray-400)] font-sans">
+                <time itemprop="datePublished" datetime={article.publishedAt}>{formatDate(article.publishedAt)}</time>
+                <span>·</span>
+                <span>{article.readTime} min read</span>
+              </div>
+            </div>
+          </div>
+          <!-- Share buttons -->
+          <div class="flex items-center gap-2">
+            <button
+              class="p-2 border border-[var(--color-nk-gray-200)] text-[var(--color-nk-gray-500)] hover:border-[var(--color-nk-gray-400)] hover:text-[var(--color-nk-gray-700)] transition-colors rounded-sm"
+              aria-label="Share on Twitter"
+              onclick={`window.open('https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(Astro.url.href)}','_blank')`}
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.26 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </button>
+            <button
+              class="p-2 border border-[var(--color-nk-gray-200)] text-[var(--color-nk-gray-500)] hover:border-[var(--color-nk-gray-400)] hover:text-[var(--color-nk-gray-700)] transition-colors rounded-sm"
+              aria-label="Share on LinkedIn"
+              onclick={`window.open('https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url.href)}','_blank')`}
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M2 6.5a2 2 0 100-4 2 2 0 000 4z"/>
+              </svg>
+            </button>
+            <button
+              id="copy-link-btn"
+              class="p-2 border border-[var(--color-nk-gray-200)] text-[var(--color-nk-gray-500)] hover:border-[var(--color-nk-gray-400)] hover:text-[var(--color-nk-gray-700)] transition-colors rounded-sm"
+              aria-label="Copy link"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Hero image -->
+        <figure class="mb-6 -mx-4 sm:mx-0" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+          <img
+            src={`${article.image}?w=1200&q=85&auto=format&fit=crop`}
+            alt={article.imageAlt}
+            class="w-full object-cover max-h-[460px]"
+            itemprop="url contentUrl"
+            loading="eager"
+            width="1200"
+            height="700"
+          />
+          {article.imageCaption && (
+            <figcaption class="text-xs text-[var(--color-nk-gray-400)] mt-2 px-4 sm:px-0 font-sans italic">
+              {article.imageCaption}
+            </figcaption>
+          )}
+        </figure>
+
+        <!-- Article body -->
+        <div class="article-body relative" itemprop="articleBody">
+          {article.content ? (
+            <Fragment set:html={article.content.replace(/<h2>/g, '<h2 style="font-family:\'Playfair Display\',Georgia,serif">').replace(/<p>/g, '<p>')} />
+          ) : (
+            <>
+              <p>{article.excerpt}</p>
+              <p>
+                Analysts across the region have been closely monitoring the situation, noting that developments in key economies continue to shape investor sentiment and capital allocation strategies throughout Asia-Pacific.
+              </p>
+              <h2>Key Takeaways for Investors</h2>
+              <p>
+                The implications for portfolio positioning are significant. Fixed income markets have responded with notable shifts in duration preferences, while equity fund managers are reassessing sector exposures in light of the evolving macroeconomic backdrop.
+              </p>
+              <blockquote>
+                "We are at an inflection point that requires careful navigation. The data supports a cautious but constructive stance on regional assets."
+              </blockquote>
+              <p>
+                Looking ahead, market participants will be watching forthcoming economic data releases and central bank communications for further directional guidance. The consensus view among economists suggests that the current environment warrants continued vigilance, even as near-term risks appear better balanced than at any point in the last 18 months.
+              </p>
+              <p>
+                Regional currencies have also been a focal point, with several Asia-Pacific central banks adjusting their intervention postures in response to currency volatility driven by the shifting rate differential with the United States.
+              </p>
+            </>
+          )}
+
+          <!-- Paywall overlay for premium articles -->
+          {article.premium && (
+            <div class="mt-[-200px] pt-[200px] bg-gradient-to-t from-white via-white/95 to-transparent relative z-10">
+              <div class="bg-white border border-[var(--color-nk-gray-200)] p-6 text-center shadow-sm">
+                <div class="inline-block w-12 h-12 rounded-full bg-[var(--color-nk-red)] text-white flex items-center justify-center mb-3 mx-auto">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                  </svg>
+                </div>
+                <h3 class="text-lg font-bold text-[var(--color-nk-navy)] mb-2" style="font-family: 'Playfair Display', Georgia, serif;">
+                  This is a Premium article
+                </h3>
+                <p class="text-sm text-[var(--color-nk-gray-500)] mb-4 font-sans max-w-sm mx-auto">
+                  Subscribe to FinanceAsia for unlimited access to Asia's most trusted financial journalism.
+                </p>
+                <a
+                  href="#subscribe"
+                  class="inline-block bg-[var(--color-nk-red)] text-white px-8 py-3 text-sm font-bold uppercase tracking-wide hover:bg-[var(--color-nk-red-dark)] transition-colors"
+                >
+                  Subscribe Now
+                </a>
+                <p class="text-xs text-[var(--color-nk-gray-400)] mt-3 font-sans">Already a subscriber? <a href="#" class="text-[var(--color-nk-red)]">Sign in</a></p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <!-- Tags -->
+        {article.tags && article.tags.length > 0 && (
+          <div class="mt-8 pt-5 border-t border-[var(--color-nk-gray-200)]">
+            <span class="text-[0.65rem] font-bold uppercase tracking-widest text-[var(--color-nk-gray-400)] font-sans mr-2">Topics:</span>
+            {article.tags.map(tag => (
+              <a
+                href={`#`}
+                class="inline-block mr-2 mb-2 px-3 py-1 text-xs border border-[var(--color-nk-gray-300)] text-[var(--color-nk-gray-600)] hover:border-[var(--color-nk-red)] hover:text-[var(--color-nk-red)] transition-colors font-sans"
+              >
+                {tag}
+              </a>
+            ))}
+          </div>
+        )}
+
+        <!-- Author bio -->
+        {article.authorBio && (
+          <div class="mt-8 p-5 bg-[var(--color-nk-gray-100)] border-l-4 border-[var(--color-nk-navy)] flex gap-4">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[var(--color-nk-navy)] flex items-center justify-center text-white font-bold text-lg">
+              {article.author.charAt(0)}
+            </div>
+            <div>
+              <p class="font-bold text-[var(--color-nk-navy)] text-sm font-sans">{article.author}</p>
+              <p class="text-xs text-[var(--color-nk-gray-500)] mt-1 font-sans leading-relaxed">{article.authorBio}</p>
+            </div>
+          </div>
+        )}
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="lg:col-span-4" aria-label="Article sidebar">
+        <div class="sticky top-20 space-y-8">
+
+          <!-- Related articles -->
+          {related.length > 0 && (
+            <section aria-labelledby="related-heading">
+              <SectionHeader id="related-heading" title="Related" />
+              <div class="mt-4 space-y-5">
+                {related.map(a => (
+                  <ArticleCard article={a} variant="card" />
+                ))}
+              </div>
+            </section>
+          )}
+
+          <!-- More to read -->
+          <section aria-labelledby="more-read-heading">
+            <SectionHeader id="more-read-heading" title="More to Read" />
+            <div class="mt-4 space-y-4">
+              {allOtherArticles.map(a => (
+                <ArticleCard article={a} variant="compact" />
+              ))}
+            </div>
+          </section>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Related articles below -->
+  {related.length > 0 && (
+    <section class="border-t border-[var(--color-nk-gray-200)] bg-[var(--color-nk-gray-100)] py-10" aria-labelledby="more-stories-heading">
+      <div class="max-w-screen-xl mx-auto px-4 lg:px-6">
+        <SectionHeader id="more-stories-heading" title={`More in ${article.category}`} href={`/category/${article.categorySlug}`} />
+        <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {related.map(a => (
+            <ArticleCard article={a} variant="featured" />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <script>
+    const btn = document.getElementById('copy-link-btn');
+    btn?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        const original = btn.innerHTML;
+        btn.innerHTML = `<svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`;
+        setTimeout(() => { btn.innerHTML = original; }, 2000);
+      } catch {}
+    });
+  </script>
+</Layout>

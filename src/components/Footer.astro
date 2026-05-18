@@ -1,0 +1,114 @@
+---
+import { categories } from '../data/articles';
+---
+
+<footer class="bg-[var(--color-nk-navy)] text-white mt-12">
+  <!-- Subscribe banner -->
+  <div id="subscribe" class="bg-[var(--color-nk-red)] py-10 px-4">
+    <div class="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div>
+        <h2 class="text-xl md:text-2xl font-bold" style="font-family: 'Playfair Display', Georgia, serif;">
+          Stay ahead of Asian markets
+        </h2>
+        <p class="text-white/80 mt-1 text-sm">Get unlimited access to award-winning finance journalism.</p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+        <input
+          type="email"
+          placeholder="Your email address"
+          class="flex-1 md:w-64 px-4 py-3 text-[var(--color-nk-gray-800)] text-sm font-sans focus:outline-none"
+          aria-label="Email for newsletter"
+        />
+        <button
+          class="bg-[var(--color-nk-navy)] text-white px-6 py-3 text-sm font-bold uppercase tracking-wide hover:bg-[var(--color-nk-navy-light)] transition-colors whitespace-nowrap"
+        >
+          Subscribe Free
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer main -->
+  <div class="max-w-screen-xl mx-auto px-4 lg:px-6 py-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 border-b border-white/10 pb-10">
+
+      <!-- Brand column -->
+      <div class="lg:col-span-2">
+        <a href="/" class="inline-block mb-4" aria-label="FinanceAsia Home">
+          <span class="text-[var(--color-nk-red)] font-bold text-2xl leading-none" style="font-family: 'Playfair Display', Georgia, serif;">
+            Finance<span class="text-white">Asia</span>
+          </span>
+        </a>
+        <p class="text-white/60 text-sm leading-relaxed mb-5 max-w-sm font-sans">
+          FinanceAsia delivers real-time news, deep analysis, and expert opinion on financial markets, economies, and businesses across the Asia-Pacific region.
+        </p>
+        <!-- Social links -->
+        <div class="flex gap-3">
+          {[
+            { name: 'Twitter/X', icon: 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.26 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z', href: 'https://twitter.com' },
+            { name: 'LinkedIn', icon: 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M2 6.5a2 2 0 100-4 2 2 0 000 4z', href: 'https://linkedin.com' },
+            { name: 'RSS', icon: 'M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19.01 7.38 20 6.18 20C4.98 20 4 19.01 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z', href: '#rss' },
+          ].map(social => (
+            <a
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/50 transition-colors"
+              aria-label={social.name}
+            >
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                <path d={social.icon}/>
+              </svg>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Section columns -->
+      <div>
+        <h3 class="text-[0.65rem] font-bold uppercase tracking-widest text-white/40 mb-4 font-sans">Sections</h3>
+        <ul class="space-y-2.5">
+          {categories.slice(0, 4).map(cat => (
+            <li>
+              <a href={`/category/${cat.slug}`} class="text-sm text-white/70 hover:text-white transition-colors font-sans">
+                {cat.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-[0.65rem] font-bold uppercase tracking-widest text-white/40 mb-4 font-sans">More</h3>
+        <ul class="space-y-2.5">
+          {categories.slice(4).map(cat => (
+            <li>
+              <a href={`/category/${cat.slug}`} class="text-sm text-white/70 hover:text-white transition-colors font-sans">
+                {cat.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-[0.65rem] font-bold uppercase tracking-widest text-white/40 mb-4 font-sans">Company</h3>
+        <ul class="space-y-2.5">
+          {['About Us', 'Editorial Standards', 'Advertise', 'Careers', 'Contact Us', 'Privacy Policy', 'Terms of Use'].map(link => (
+            <li>
+              <a href="#" class="text-sm text-white/70 hover:text-white transition-colors font-sans">{link}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40 font-sans">
+      <p>© {new Date().getFullYear()} FinanceAsia Media Ltd. All rights reserved.</p>
+      <p class="flex items-center gap-1">
+        <span>Asia-Pacific Financial Intelligence Since 2024</span>
+      </p>
+    </div>
+  </div>
+</footer>

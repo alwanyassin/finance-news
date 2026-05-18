@@ -1,0 +1,390 @@
+---
+import { categories, marketData, breakingNews } from '../data/articles';
+
+// Dummy dropdown items per category
+const dropdownItems: Record<string, { label: string; href: string }[]> = {
+  markets: [
+    { label: 'Equities', href: '/category/markets' },
+    { label: 'Bonds & Rates', href: '/category/markets' },
+    { label: 'Currencies', href: '/category/markets' },
+    { label: 'Commodities', href: '/category/markets' },
+    { label: 'Crypto', href: '/category/markets' },
+  ],
+  economy: [
+    { label: 'GDP & Growth', href: '/category/economy' },
+    { label: 'Inflation', href: '/category/economy' },
+    { label: 'Central Banks', href: '/category/economy' },
+    { label: 'Trade Policy', href: '/category/economy' },
+    { label: 'Fiscal Policy', href: '/category/economy' },
+  ],
+  business: [
+    { label: 'Corporate Strategy', href: '/category/business' },
+    { label: 'M&A', href: '/category/business' },
+    { label: 'Startups', href: '/category/business' },
+    { label: 'Real Estate', href: '/category/business' },
+    { label: 'Supply Chain', href: '/category/business' },
+  ],
+  technology: [
+    { label: 'Artificial Intelligence', href: '/category/technology' },
+    { label: 'Semiconductors', href: '/category/technology' },
+    { label: 'Fintech', href: '/category/technology' },
+    { label: 'Cybersecurity', href: '/category/technology' },
+    { label: 'EVs & Clean Tech', href: '/category/technology' },
+  ],
+  politics: [
+    { label: 'US–China Relations', href: '/category/politics' },
+    { label: 'ASEAN', href: '/category/politics' },
+    { label: 'Elections', href: '/category/politics' },
+    { label: 'Geopolitics', href: '/category/politics' },
+    { label: 'Sanctions', href: '/category/politics' },
+  ],
+  opinion: [
+    { label: 'Columns', href: '/category/opinion' },
+    { label: 'Analysis', href: '/category/opinion' },
+    { label: 'Editorials', href: '/category/opinion' },
+    { label: 'Letters', href: '/category/opinion' },
+  ],
+  esg: [
+    { label: 'Climate', href: '/category/esg' },
+    { label: 'Green Finance', href: '/category/esg' },
+    { label: 'Governance', href: '/category/esg' },
+    { label: 'Social Impact', href: '/category/esg' },
+  ],
+  asia: [
+    { label: 'Japan', href: '/category/asia' },
+    { label: 'China', href: '/category/asia' },
+    { label: 'India', href: '/category/asia' },
+    { label: 'Southeast Asia', href: '/category/asia' },
+    { label: 'Korea', href: '/category/asia' },
+  ],
+};
+---
+
+<!-- Top utility bar -->
+<div class="bg-[var(--color-nk-navy)] text-white">
+  <!-- Market data ticker -->
+  <div class="border-b border-white/10 overflow-hidden">
+    <div class="flex items-center">
+      <span class="flex-shrink-0 bg-[var(--color-nk-red)] px-3 py-1.5 text-[0.65rem] font-semibold tracking-widest uppercase font-sans z-10">Markets</span>
+      <div class="flex-1 overflow-hidden">
+        <div class="flex gap-4 px-4 py-1.5 overflow-x-auto scrollbar-none" style="scrollbar-width: none;">
+          {marketData.map(item => (
+            <div class="market-pill flex-shrink-0">
+              <span class="opacity-75 text-[0.65rem]">{item.name}</span>
+              <span class="font-semibold text-[0.72rem] text-white">{item.value}</span>
+              <span class={`text-[0.65rem] font-semibold ${item.up ? 'text-emerald-400' : 'text-red-400'}`}>
+                {item.up ? '▲' : '▼'} {item.change}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Breaking news ticker -->
+  <div class="flex items-center overflow-hidden py-1.5 border-b border-white/10">
+    <span class="flex-shrink-0 bg-[var(--color-nk-breaking)] px-3 py-0.5 text-[0.6rem] font-bold tracking-widest uppercase mr-3">Breaking</span>
+    <div class="flex-1 overflow-hidden relative">
+      <div class="ticker-track text-[0.72rem] text-white/85 font-sans">
+        {breakingNews.map((news, i) => (
+          <span class="inline-block">
+            {i > 0 && <span class="mx-8 text-white/30">●</span>}
+            <a href="#" class="hover:text-white transition-colors">{news}</a>
+          </span>
+        ))}
+        {breakingNews.map((news) => (
+          <span class="inline-block">
+            <span class="mx-8 text-white/30">●</span>
+            <a href="#" class="hover:text-white transition-colors">{news}</a>
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main header -->
+<header class="bg-white border-b border-[var(--color-nk-gray-300)] sticky top-0 z-50 shadow-sm">
+  <div class="max-w-screen-xl mx-auto px-4 lg:px-6">
+    <div class="flex items-center justify-between h-14 md:h-16">
+
+      <!-- Logo -->
+      <a href="/" class="flex items-center flex-shrink-0" aria-label="FinanceAsia Home">
+        <span class="text-[var(--color-nk-red)] font-bold text-xl md:text-2xl leading-none tracking-tight" style="font-family: 'Playfair Display', Georgia, serif;">
+          Finance<span class="text-[var(--color-nk-navy)]">Asia</span>
+        </span>
+      </a>
+
+      <!-- Desktop Navigation with Dropdowns -->
+      <nav class="hidden lg:flex items-stretch h-full" aria-label="Main navigation">
+        {categories.map(cat => {
+          const items = dropdownItems[cat.slug] ?? [];
+          return (
+            <div class="nav-dropdown-group relative flex items-center h-full">
+              <!-- Nav link -->
+              <a
+                href={`/category/${cat.slug}`}
+                class="nav-trigger flex items-center gap-1 px-3 h-full text-[0.78rem] font-semibold text-[var(--color-nk-gray-700)] hover:text-[var(--color-nk-red)] uppercase tracking-wide transition-colors duration-150 border-b-2 border-transparent hover:border-[var(--color-nk-red)]"
+              >
+                {cat.name}
+                {items.length > 0 && (
+                  <svg
+                    class="nav-chevron w-3 h-3 opacity-40 transition-transform duration-200"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                )}
+              </a>
+
+              <!-- Dropdown panel: padding-top bridge prevents hover gap -->
+              {items.length > 0 && (
+                <div
+                  class="nav-dropdown absolute left-0 min-w-[190px] z-50"
+                  role="menu"
+                >
+                  <div class="nav-dropdown-inner">
+                    <ul class="py-1">
+                      {items.map(item => (
+                        <li role="none">
+                          <a
+                            href={item.href}
+                            role="menuitem"
+                            class="block px-4 py-2 text-[0.78rem] font-medium text-[var(--color-nk-gray-700)] hover:text-[var(--color-nk-red)] hover:bg-[var(--color-nk-gray-50)] transition-colors font-sans"
+                          >
+                            {item.label}
+                          </a>
+                        </li>
+                      ))}
+                      <li role="none" class="border-t border-[var(--color-nk-gray-100)] mt-1">
+                        <a
+                          href={`/category/${cat.slug}`}
+                          role="menuitem"
+                          class="flex items-center gap-1.5 px-4 py-2 text-[0.72rem] font-bold text-[var(--color-nk-red)] hover:bg-red-50 transition-colors uppercase tracking-wide font-sans"
+                        >
+                          See all {cat.name}
+                          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                          </svg>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </nav>
+
+      <!-- Right actions -->
+      <div class="flex items-center gap-2 md:gap-3">
+        <button
+          id="search-toggle"
+          class="p-2 text-[var(--color-nk-gray-600)] hover:text-[var(--color-nk-red)] transition-colors"
+          aria-label="Search"
+          aria-expanded="false"
+        >
+          <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+        </button>
+
+        <a
+          href="#subscribe"
+          class="hidden md:inline-flex items-center bg-[var(--color-nk-red)] text-white px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-wide hover:bg-[var(--color-nk-red-dark)] transition-colors duration-150"
+        >
+          Subscribe
+        </a>
+
+        <button
+          id="mobile-menu-toggle"
+          class="lg:hidden p-2 text-[var(--color-nk-gray-700)]"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+        >
+          <svg id="menu-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <svg id="close-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Search bar (collapsible) -->
+    <div id="search-bar" class="hidden pb-3 border-t border-[var(--color-nk-gray-200)]">
+      <form class="flex gap-2 pt-3" action="/search" method="get" role="search">
+        <input
+          type="search"
+          name="q"
+          placeholder="Search FinanceAsia..."
+          class="flex-1 border border-[var(--color-nk-gray-300)] px-4 py-2 text-sm font-sans focus:outline-none focus:border-[var(--color-nk-red)] focus:ring-1 focus:ring-[var(--color-nk-red)]"
+          aria-label="Search"
+          id="search-input"
+        />
+        <button type="submit" class="bg-[var(--color-nk-red)] text-white px-5 py-2 text-sm font-semibold hover:bg-[var(--color-nk-red-dark)] transition-colors">
+          Search
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation (accordion) -->
+  <nav id="mobile-nav" class="mobile-menu lg:hidden bg-white border-t border-[var(--color-nk-gray-200)]" aria-label="Mobile navigation">
+    <div class="max-w-screen-xl mx-auto px-4 py-2">
+      {categories.map(cat => {
+        const items = dropdownItems[cat.slug] ?? [];
+        return (
+          <div class="mobile-nav-item border-b border-[var(--color-nk-gray-100)]">
+            <div class="flex items-center">
+              <a
+                href={`/category/${cat.slug}`}
+                class="flex-1 py-3 text-sm font-semibold text-[var(--color-nk-gray-700)] hover:text-[var(--color-nk-red)] uppercase tracking-wide transition-colors"
+              >
+                {cat.name}
+              </a>
+              {items.length > 0 && (
+                <button
+                  class="mobile-accordion-btn p-2 text-[var(--color-nk-gray-500)] hover:text-[var(--color-nk-red)] transition-colors"
+                  aria-label={`Expand ${cat.name}`}
+                  aria-expanded="false"
+                >
+                  <svg class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </button>
+              )}
+            </div>
+            {items.length > 0 && (
+              <div class="mobile-accordion-content hidden pb-2 pl-3 border-l-2 border-[var(--color-nk-red)] ml-1 mb-1">
+                {items.map(item => (
+                  <a
+                    href={item.href}
+                    class="block py-1.5 text-[0.82rem] text-[var(--color-nk-gray-600)] hover:text-[var(--color-nk-red)] font-sans transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })}
+      <div class="py-4">
+        <a href="#subscribe" class="block w-full text-center bg-[var(--color-nk-red)] text-white px-4 py-3 text-sm font-semibold uppercase tracking-wide hover:bg-[var(--color-nk-red-dark)] transition-colors">
+          Subscribe to FinanceAsia
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Nav dropdown styles are in global.css -->
+
+
+<script>
+  // ── Desktop Dropdown (JS mouseenter/mouseleave — inline style approach) ──
+  const CLOSE_DELAY = 120;
+
+  document.querySelectorAll('.nav-dropdown-group').forEach(group => {
+    const panel   = group.querySelector<HTMLElement>('.nav-dropdown');
+    const trigger = group.querySelector<HTMLElement>('.nav-trigger');
+    const chevron = group.querySelector<HTMLElement>('.nav-chevron');
+    if (!panel) return;
+
+    let closeTimer: ReturnType<typeof setTimeout>;
+
+    const openDropdown = () => {
+      clearTimeout(closeTimer);
+      // Show panel
+      panel.style.opacity = '1';
+      panel.style.pointerEvents = 'auto';
+      // Highlight trigger
+      if (trigger) {
+        trigger.style.color = 'var(--color-nk-red)';
+        trigger.style.borderBottomColor = 'var(--color-nk-red)';
+      }
+      // Rotate chevron
+      if (chevron) {
+        chevron.style.opacity = '1';
+        chevron.style.transform = 'rotate(180deg)';
+      }
+    };
+
+    const closeDropdown = () => {
+      closeTimer = setTimeout(() => {
+        panel.style.opacity = '0';
+        panel.style.pointerEvents = 'none';
+        if (trigger) {
+          trigger.style.color = '';
+          trigger.style.borderBottomColor = '';
+        }
+        if (chevron) {
+          chevron.style.opacity = '';
+          chevron.style.transform = '';
+        }
+      }, CLOSE_DELAY);
+    };
+
+    group.addEventListener('mouseenter', openDropdown);
+    group.addEventListener('mouseleave', closeDropdown);
+    panel.addEventListener('mouseenter', openDropdown);
+    panel.addEventListener('mouseleave', closeDropdown);
+
+    // Keyboard: Escape closes
+    group.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeDropdown();
+    });
+  });
+
+  // ── Mobile menu toggle ──
+  const menuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileNav  = document.getElementById('mobile-nav');
+  const menuIcon   = document.getElementById('menu-icon');
+  const closeIcon  = document.getElementById('close-icon');
+
+  menuToggle?.addEventListener('click', () => {
+    const isOpen = mobileNav?.classList.contains('open');
+    mobileNav?.classList.toggle('open');
+    menuIcon?.classList.toggle('hidden', !isOpen);
+    closeIcon?.classList.toggle('hidden', isOpen);
+    menuToggle?.setAttribute('aria-expanded', String(!isOpen));
+  });
+
+  // ── Search toggle ──
+  const searchToggle = document.getElementById('search-toggle');
+  const searchBar    = document.getElementById('search-bar');
+  const searchInput  = document.getElementById('search-input');
+
+  searchToggle?.addEventListener('click', () => {
+    const isHidden = searchBar?.classList.contains('hidden');
+    searchBar?.classList.toggle('hidden');
+    searchToggle?.setAttribute('aria-expanded', String(isHidden));
+    if (isHidden) setTimeout(() => (searchInput as HTMLInputElement)?.focus(), 50);
+  });
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as Element;
+    if (!searchBar?.contains(target) && !searchToggle?.contains(target)) {
+      searchBar?.classList.add('hidden');
+      searchToggle?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // ── Mobile accordion ──
+  document.querySelectorAll('.mobile-accordion-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item    = btn.closest('.mobile-nav-item');
+      const content = item?.querySelector('.mobile-accordion-content');
+      const chevron = btn.querySelector('svg');
+      const isOpen  = !content?.classList.contains('hidden');
+      content?.classList.toggle('hidden', isOpen);
+      chevron?.classList.toggle('rotate-180', !isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+</script>
