@@ -399,7 +399,7 @@ const latestHeadlines = articles.slice(2, 8);
 
       <!-- Right Column: Promo Banner -->
       <div class="lg:w-[260px] xl:w-[280px] shrink-0 lg:pl-0 pt-8 lg:pt-0">
-        <div class="bg-[#15344f] w-full h-full flex flex-col items-center justify-between p-6 text-center text-white relative">
+        <div class="bg-[var(--color-nk-navy-light)] w-full h-full flex flex-col items-center justify-between p-6 text-center text-white relative">
           <!-- Main Content -->
           <div class="w-full">
             <!-- Logo -->
@@ -422,13 +422,13 @@ const latestHeadlines = articles.slice(2, 8);
           <div class="w-full relative">
             <!-- Ribbon Button -->
             <div class="relative w-[calc(100%+2rem)] -ml-4 mt-2 mb-4">
-              <a href="#" class="block w-full bg-[#0078bb] hover:bg-[#0065a0] text-white text-[0.82rem] font-bold py-3 px-2 transition-colors relative z-20 shadow-md">
+              <a href="#" class="block w-full bg-[var(--color-nk-navy)] hover:bg-[var(--color-nk-navy-light)] text-white text-[0.82rem] font-bold py-3 px-2 transition-colors relative z-20 shadow-md">
                 Full access to website & app
               </a>
               <!-- Left Fold -->
-              <div class="absolute left-0 -bottom-2 w-0 h-0 border-t-[8px] border-r-[12px] border-t-[#004a75] border-r-transparent z-10"></div>
+              <div class="absolute left-0 -bottom-2 w-0 h-0 border-t-[8px] border-r-[12px] border-t-[var(--color-nk-navy-light)] border-r-transparent z-10"></div>
               <!-- Right Fold -->
-              <div class="absolute right-0 -bottom-2 w-0 h-0 border-t-[8px] border-l-[12px] border-t-[#004a75] border-l-transparent z-10"></div>
+              <div class="absolute right-0 -bottom-2 w-0 h-0 border-t-[8px] border-l-[12px] border-t-[var(--color-nk-navy-light)] border-l-transparent z-10"></div>
             </div>
             
             <!-- Subscribe Button -->
@@ -444,10 +444,10 @@ const latestHeadlines = articles.slice(2, 8);
 
   <!-- ===== IRAN CONFLICT BANNER SECTION ===== -->
   <section class="max-w-screen-xl mx-auto px-4 lg:px-6 py-4 md:py-6 mb-4" aria-label="Iran Conflict Coverage">
-    <div class="flex flex-col md:flex-row bg-slate-900 text-white shadow-sm border-l-4 border-[var(--color-nk-red)] hover:shadow-md transition-shadow">
+    <div class="flex flex-col md:flex-row bg-[var(--color-nk-navy)] text-white shadow-sm border-l-4 border-[var(--color-nk-red)] hover:shadow-md transition-shadow">
       
       <!-- Image Left -->
-      <div class="w-full md:w-[35%] lg:w-[25%] relative aspect-[21/9] md:aspect-auto bg-slate-800">
+      <div class="w-full md:w-[35%] lg:w-[25%] relative aspect-[21/9] md:aspect-auto bg-[var(--color-nk-navy-light)]">
         <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80&auto=format&fit=crop" alt="Trading screens" class="absolute inset-0 w-full h-full object-cover opacity-70 mix-blend-luminosity" loading="lazy" />
       </div>
       
@@ -459,7 +459,7 @@ const latestHeadlines = articles.slice(2, 8);
           <h2 class="text-xl md:text-2xl lg:text-3xl font-bold font-display leading-snug mb-2">
             How the Middle East crisis impacts Asia
           </h2>
-          <p class="text-[0.85rem] md:text-sm text-gray-300 font-sans mb-4 md:mb-5 max-w-xl">
+          <p class="text-[0.85rem] md:text-sm text-[var(--color-nk-gray-300)] font-sans mb-4 md:mb-5 max-w-xl">
             Our latest coverage of business, diplomacy and the economy after the U.S.-Israeli strikes
           </p>
           <a href="#" class="inline-flex items-center gap-2 font-bold text-[0.85rem] text-[var(--color-nk-red)] hover:text-white transition-colors font-sans w-max group uppercase tracking-wide">
@@ -471,8 +471,8 @@ const latestHeadlines = articles.slice(2, 8);
         </div>
 
         <!-- Right Side: Vertical Line + IRAN CONFLICT -->
-        <div class="md:w-[160px] lg:w-[200px] shrink-0 flex items-center justify-center p-4 md:p-0 md:my-6 border-t md:border-t-0 md:border-l border-gray-700 mx-5 md:mx-0">
-          <span class="text-sm md:text-base lg:text-lg font-bold font-sans uppercase tracking-widest whitespace-nowrap text-center text-gray-400">
+        <div class="md:w-[160px] lg:w-[200px] shrink-0 flex items-center justify-center p-4 md:p-0 md:my-6 border-t md:border-t-0 md:border-l border-[var(--color-nk-gray-700)] mx-5 md:mx-0">
+          <span class="text-sm md:text-base lg:text-lg font-bold font-sans uppercase tracking-widest whitespace-nowrap text-center text-[var(--color-nk-gray-400)]">
             IRAN <br class="hidden md:block lg:hidden" />CONFLICT
           </span>
         </div>
@@ -495,7 +495,7 @@ const latestHeadlines = articles.slice(2, 8);
         </h2>
 
         <!-- Featured Opinion Card -->
-        <article class="bg-nk-gray-200 border-t-2 border-[var(--color-nk-navy)] mb-5 group cursor-pointer hover:bg-[#f4f2ec] transition-colors flex flex-col md:flex-row shadow-sm">
+        <article class="bg-nk-gray-200 border-t-2 border-[var(--color-nk-navy)] mb-5 group cursor-pointer hover:bg-[var(--color-nk-gray-100)] transition-colors flex flex-col md:flex-row shadow-sm">
           <div class="p-5 md:p-6 flex-1 flex flex-col justify-between order-2 md:order-1">
             <div>
               <h3 class="text-xl md:text-[1.65rem] font-bold font-display text-[var(--color-nk-gray-800)] leading-tight mb-3 group-hover:text-[var(--color-nk-red)] transition-colors">
@@ -506,11 +506,11 @@ const latestHeadlines = articles.slice(2, 8);
               </p>
             </div>
             <div class="flex items-center gap-3 mt-6">
-              <img src="https://i.pravatar.cc/150?u=salman" alt="Salman Rafi Sheikh" class="w-10 h-10 rounded-full grayscale border border-[var(--color-nk-gray-300)] bg-gray-200" loading="lazy" />
+              <img src="https://i.pravatar.cc/150?u=salman" alt="Salman Rafi Sheikh" class="w-10 h-10 rounded-full grayscale border border-[var(--color-nk-gray-300)] bg-[var(--color-nk-gray-200)]" loading="lazy" />
               <span class="font-bold text-[0.8rem] text-[var(--color-nk-red)] uppercase tracking-wide">Salman Rafi Sheikh</span>
             </div>
           </div>
-          <div class="order-1 md:order-2 md:w-[45%] relative aspect-video md:aspect-auto overflow-hidden bg-gray-200">
+          <div class="order-1 md:order-2 md:w-[45%] relative aspect-video md:aspect-auto overflow-hidden bg-[var(--color-nk-gray-200)]">
             <img src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=600&q=80&auto=format&fit=crop" alt="Cricket Match" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
           </div>
         </article>
@@ -534,12 +534,12 @@ const latestHeadlines = articles.slice(2, 8);
               avatar: "https://i.pravatar.cc/150?u=lauren"
             }
           ].map(op => (
-            <article class="bg-nk-gray-200 border-t border-[var(--color-nk-gray-300)] p-4 lg:p-5 group cursor-pointer hover:bg-[#f4f2ec] transition-colors flex flex-col h-full shadow-sm">
+            <article class="bg-nk-gray-200 border-t border-[var(--color-nk-gray-300)] p-4 lg:p-5 group cursor-pointer hover:bg-[var(--color-nk-gray-100)] transition-colors flex flex-col h-full shadow-sm">
               <h3 class="text-[1.1rem] lg:text-[1.15rem] font-medium font-display text-[var(--color-nk-gray-800)] leading-snug mb-5 group-hover:text-[var(--color-nk-red)] transition-colors line-clamp-4">
                 {op.title}
               </h3>
               <div class="flex items-center gap-3 mt-auto pt-2">
-                <img src={op.avatar} alt={op.author} class="w-8 h-8 rounded-full grayscale border border-[var(--color-nk-gray-300)] bg-gray-200" loading="lazy" />
+                <img src={op.avatar} alt={op.author} class="w-8 h-8 rounded-full grayscale border border-[var(--color-nk-gray-300)] bg-[var(--color-nk-gray-200)]" loading="lazy" />
                 <span class="font-bold text-[0.75rem] text-[var(--color-nk-red)] uppercase tracking-wide">{op.author}</span>
               </div>
             </article>
@@ -656,12 +656,12 @@ const latestHeadlines = articles.slice(2, 8);
             { name: 'USD/CNY', val: '6.80', diff: '-0.01', pct: '-0.07%' },
           ].map((row) => {
             const isPos = row.diff.startsWith('+');
-            const colorClass = isPos ? 'text-[#00a86b]' : 'text-[#f04848]';
+            const colorClass = isPos ? 'market-up' : 'market-down';
             return (
               <li class="flex items-center justify-between py-[11px] border-t border-[var(--color-nk-gray-200)] font-sans">
                 <span class="font-display font-bold text-sm text-black tracking-tight">{row.name}</span>
                 <div class="flex items-center gap-1 text-right font-sans">
-                  <span class="text-gray-600 text-[0.75rem] w-[50px]">{row.val}</span>
+                  <span class="text-[var(--color-nk-gray-600)] text-[0.75rem] w-[50px]">{row.val}</span>
                   <span class={`${colorClass} text-[0.7rem] w-[45px]`}>{row.diff}</span>
                   <span class={`${colorClass} text-[0.7rem] w-[40px]`}>{row.pct}</span>
                 </div>
@@ -669,7 +669,7 @@ const latestHeadlines = articles.slice(2, 8);
             );
           })}
         </ul>
-        <div class="text-right mt-2 text-[0.65rem] text-gray-500 font-sans italic">
+        <div class="text-right mt-2 text-[0.65rem] text-[var(--color-nk-gray-500)] font-sans italic">
           * Data delayed by at least 15 minutes
         </div>
       </aside>
@@ -792,7 +792,7 @@ const latestHeadlines = articles.slice(2, 8);
                   <span class="text-xs font-semibold text-[var(--color-nk-gray-700)] font-sans">{item.name}</span>
                   <div class="flex items-center gap-2">
                     <span class="text-xs font-bold text-[var(--color-nk-gray-800)] font-sans">{item.value}</span>
-                    <span class={`text-[0.65rem] font-bold font-sans ${item.up ? 'text-emerald-600' : 'text-red-500'}`}>
+                    <span class={`text-[0.65rem] font-bold font-sans ${item.up ? 'market-up' : 'market-down'}`}>
                       {item.up ? '▲' : '▼'} {item.change}
                     </span>
                   </div>

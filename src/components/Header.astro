@@ -72,7 +72,7 @@ const dropdownItems: Record<string, { label: string; href: string }[]> = {
             <div class="market-pill flex-shrink-0">
               <span class="opacity-75 text-[0.65rem]">{item.name}</span>
               <span class="font-semibold text-[0.72rem] text-white">{item.value}</span>
-              <span class={`text-[0.65rem] font-semibold ${item.up ? 'text-emerald-400' : 'text-red-400'}`}>
+              <span class={`text-[0.65rem] font-semibold ${item.up ? 'market-up' : 'market-down'}`}>
                 {item.up ? '▲' : '▼'} {item.change}
               </span>
             </div>
