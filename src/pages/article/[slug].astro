@@ -61,11 +61,11 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
           {article.region && (
             <>
               <span class="text-nk-gray-300">·</span>
-              <span class="text-[0.65rem] font-semibold text-nk-gray-400 uppercase tracking-wide font-sans">{article.region}</span>
+              <span class="text-[0.65rem] font-semibold text-nk-gray-600 uppercase tracking-wide font-sans">{article.region}</span>
             </>
           )}
           {article.premium && (
-            <span class="ml-auto text-[0.6rem] font-bold bg-nk-gold text-nk-navy px-2 py-0.5 uppercase tracking-wide">
+            <span class="ml-auto text-[0.6rem] font-bold bg-nk-gold text-nk-navy px-2 py-0.5 uppercase tracking-wide shadow-xs">
               Premium
             </span>
           )}
@@ -88,12 +88,12 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
         <!-- Byline -->
         <div class="flex items-center justify-between py-4 border-y border-nk-gray-200 mb-6">
           <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-full bg-nk-navy flex items-center justify-center text-white font-bold text-sm shrink-0">
+            <div class="w-9 h-9 rounded-full bg-nk-navy border border-nk-gold-light/20 flex items-center justify-center text-white font-bold text-sm shrink-0 shadow-xs">
               {article.author.charAt(0)}
             </div>
             <div>
               <p class="text-sm font-semibold text-nk-gray-800 font-sans" itemprop="author">{article.author}</p>
-              <div class="flex items-center gap-1.5 text-xs text-nk-gray-400 font-sans">
+              <div class="flex items-center gap-1.5 text-xs text-nk-gray-500 font-sans">
                 <time itemprop="datePublished" datetime={article.publishedAt}>{formatDate(article.publishedAt)}</time>
                 <span>·</span>
                 <span>{article.readTime} min read</span>
@@ -103,7 +103,7 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
           <!-- Share buttons -->
           <div class="flex items-center gap-2">
             <button
-              class="p-2 border border-nk-gray-200 text-nk-gray-500 hover:border-nk-gray-400 hover:text-nk-gray-700 transition-colors rounded-sm"
+              class="p-2 border border-nk-gray-200 text-nk-gray-500 hover:border-nk-red hover:text-nk-red hover:bg-nk-red/5 transition-all duration-300 rounded-sm cursor-pointer hover:shadow-xs"
               aria-label="Share on Twitter"
               onclick={`window.open('https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(Astro.url.href)}','_blank')`}
             >
@@ -112,7 +112,7 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
               </svg>
             </button>
             <button
-              class="p-2 border border-nk-gray-200 text-nk-gray-500 hover:border-nk-gray-400 hover:text-nk-gray-700 transition-colors rounded-sm"
+              class="p-2 border border-nk-gray-200 text-nk-gray-500 hover:border-nk-red hover:text-nk-red hover:bg-nk-red/5 transition-all duration-300 rounded-sm cursor-pointer hover:shadow-xs"
               aria-label="Share on LinkedIn"
               onclick={`window.open('https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url.href)}','_blank')`}
             >
@@ -122,7 +122,7 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
             </button>
             <button
               id="copy-link-btn"
-              class="p-2 border border-nk-gray-200 text-nk-gray-500 hover:border-nk-gray-400 hover:text-nk-gray-700 transition-colors rounded-sm"
+              class="p-2 border border-nk-gray-200 text-nk-gray-500 hover:border-nk-red hover:text-nk-red hover:bg-nk-red/5 transition-all duration-300 rounded-sm cursor-pointer hover:shadow-xs"
               aria-label="Copy link"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -137,14 +137,14 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
           <img
             src={`${article.image}?w=1200&q=85&auto=format&fit=crop`}
             alt={article.imageAlt}
-            class="w-full object-cover max-h-[460px]"
+            class="w-full object-cover max-h-[460px] sm:rounded-xs sm:shadow-sm border border-nk-gray-200"
             itemprop="url contentUrl"
             loading="eager"
             width="1200"
             height="700"
           />
           {article.imageCaption && (
-            <figcaption class="text-xs text-nk-gray-400 mt-2 px-4 sm:px-0 font-sans italic">
+            <figcaption class="text-xs text-nk-gray-500 mt-2 px-4 sm:px-0 font-sans italic">
               {article.imageCaption}
             </figcaption>
           )}
@@ -153,7 +153,7 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
         <!-- Article body -->
         <div class="article-body relative" itemprop="articleBody">
           {article.content ? (
-            <Fragment set:html={article.content.replace(/<h2>/g, '<h2 style="font-family:\'Playfair Display\',Georgia,serif">').replace(/<p>/g, '<p>')} />
+            <Fragment set:html={article.content} />
           ) : (
             <>
               <p>{article.excerpt}</p>
@@ -179,7 +179,7 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
           <!-- Paywall overlay for premium articles -->
           {article.premium && (
             <div class="mt-[-200px] pt-[200px] bg-linear-to-t from-white via-white/95 to-transparent relative z-10">
-              <div class="bg-white border border-nk-gray-200 p-6 text-center shadow-sm">
+              <div class="bg-white border border-nk-gray-200 p-6 text-center shadow-sm rounded-xs">
                 <div class="inline-flex w-12 h-12 rounded-full bg-nk-red text-white items-center justify-center mb-3 mx-auto">
                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
@@ -193,11 +193,11 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
                 </p>
                 <a
                   href="#subscribe"
-                  class="inline-block bg-nk-red text-white px-8 py-3 text-sm font-bold uppercase tracking-wide hover:bg-nk-red-dark transition-colors"
+                  class="inline-block bg-nk-red text-white px-8 py-3 text-sm font-bold uppercase tracking-wide hover:bg-nk-red-dark transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
                 >
                   Subscribe Now
                 </a>
-                <p class="text-xs text-nk-gray-400 mt-3 font-sans">Already a subscriber? <a href="#" class="text-nk-red">Sign in</a></p>
+                <p class="text-xs text-nk-gray-500 mt-3 font-sans">Already a subscriber? <a href="#" class="text-nk-red hover:underline">Sign in</a></p>
               </div>
             </div>
           )}
@@ -206,11 +206,11 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
         <!-- Tags -->
         {article.tags && article.tags.length > 0 && (
           <div class="mt-8 pt-5 border-t border-nk-gray-200">
-            <span class="text-[0.65rem] font-bold uppercase tracking-widest text-nk-gray-400 font-sans mr-2">Topics:</span>
+            <span class="text-[0.65rem] font-bold uppercase tracking-widest text-nk-gray-600 font-sans mr-2">Topics:</span>
             {article.tags.map(tag => (
               <a
                 href={`#`}
-                class="inline-block mr-2 mb-2 px-3 py-1 text-xs border border-nk-gray-300 text-nk-gray-600 hover:border-nk-red hover:text-nk-red transition-colors font-sans"
+                class="inline-block mr-2 mb-2 px-3 py-1 text-xs border border-nk-gray-300 text-nk-gray-700 bg-white hover:border-nk-red hover:text-nk-red hover:bg-nk-red/5 transition-all duration-300 font-sans rounded-xs shadow-xs hover:shadow-sm"
               >
                 {tag}
               </a>
@@ -220,13 +220,13 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
 
         <!-- Author bio -->
         {article.authorBio && (
-          <div class="mt-8 p-5 bg-nk-gray-100 border-l-4 border-nk-navy flex gap-4">
-            <div class="shrink-0 w-12 h-12 rounded-full bg-nk-navy flex items-center justify-center text-white font-bold text-lg">
+          <div class="mt-8 p-6 bg-nk-gray-100 border border-nk-gray-200 border-l-4 border-l-nk-navy flex gap-4 rounded-r-xs shadow-xs">
+            <div class="shrink-0 w-12 h-12 rounded-full bg-nk-navy border border-nk-gold-light/20 flex items-center justify-center text-white font-bold text-lg shadow-xs">
               {article.author.charAt(0)}
             </div>
             <div>
               <p class="font-bold text-nk-navy text-sm font-sans">{article.author}</p>
-              <p class="text-xs text-nk-gray-500 mt-1 font-sans leading-relaxed">{article.authorBio}</p>
+              <p class="text-xs text-nk-gray-600 mt-1.5 font-sans leading-relaxed">{article.authorBio}</p>
             </div>
           </div>
         )}

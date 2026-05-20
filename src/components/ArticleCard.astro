@@ -150,7 +150,7 @@ const { article, variant = "card", loading = "lazy" } = Astro.props;
 
         <p class="text-nk-gray-500 text-xs leading-relaxed mb-2 hidden sm:block line-clamp-2 font-sans">{article.excerpt}</p>
 
-        <div class="flex items-center gap-2 text-nk-gray-400 text-xs font-sans">
+        <div class="flex items-center gap-2 text-nk-gray-500 text-xs font-sans">
           {article.premium && (
             <>
               <span class="text-[0.6rem] font-bold text-nk-gold uppercase tracking-wide">Premium</span>
@@ -181,7 +181,7 @@ const { article, variant = "card", loading = "lazy" } = Astro.props;
         <h4 class="text-sm font-semibold text-nk-gray-700 leading-snug group-hover:text-nk-red transition-colors duration-300" style="font-family: 'Playfair Display', Georgia, serif;">
           <a href={`/article/${article.slug}`}>{article.title}</a>
         </h4>
-        <span class="text-xs text-nk-gray-400 font-sans">{timeAgo(article.publishedAt)}</span>
+        <span class="text-xs text-nk-gray-500 font-sans">{timeAgo(article.publishedAt)}</span>
       </div>
     </article>
   )
