@@ -1,11 +1,11 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import ArticleCard from '../../components/ArticleCard.astro';
-import SectionHeader from '../../components/SectionHeader.astro';
-import { articles, categories, getArticlesByCategory } from '../../data/articles';
+import Layout from "../../layouts/Layout.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import { articles, categories, getArticlesByCategory } from "../../data/articles";
 
 export function getStaticPaths() {
-  return categories.map(cat => ({
+  return categories.map((cat) => ({
     params: { slug: cat.slug },
     props: { category: cat },
   }));
@@ -17,111 +17,138 @@ const categoryArticles = getArticlesByCategory(slug!);
 const heroArticle = categoryArticles[0];
 const otherArticles = categoryArticles.slice(1);
 const latestAll = articles.slice(0, 5);
+
+// Dropdown items per category matching Header.astro
+const dropdownItems: Record<string, { label: string; href: string }[]> = {
+  markets: [
+    { label: "Equities", href: "/category/markets" },
+    { label: "Bonds & Rates", href: "/category/markets" },
+    { label: "Currencies", href: "/category/markets" },
+    { label: "Commodities", href: "/category/markets" },
+    { label: "Crypto", href: "/category/markets" },
+  ],
+  economy: [
+    { label: "GDP & Growth", href: "/category/economy" },
+    { label: "Inflation", href: "/category/economy" },
+    { label: "Central Banks", href: "/category/economy" },
+    { label: "Trade Policy", href: "/category/economy" },
+    { label: "Fiscal Policy", href: "/category/economy" },
+  ],
+  business: [
+    { label: "Corporate Strategy", href: "/category/business" },
+    { label: "M&A", href: "/category/business" },
+    { label: "Startups", href: "/category/business" },
+    { label: "Real Estate", href: "/category/business" },
+    { label: "Supply Chain", href: "/category/business" },
+  ],
+  technology: [
+    { label: "Artificial Intelligence", href: "/category/technology" },
+    { label: "Semiconductors", href: "/category/technology" },
+    { label: "Fintech", href: "/category/technology" },
+    { label: "Cybersecurity", href: "/category/technology" },
+    { label: "EVs & Clean Tech", href: "/category/technology" },
+  ],
+  politics: [
+    { label: "US–China Relations", href: "/category/politics" },
+    { label: "ASEAN", href: "/category/politics" },
+    { label: "Elections", href: "/category/politics" },
+    { label: "Geopolitics", href: "/category/politics" },
+    { label: "Sanctions", href: "/category/politics" },
+  ],
+  opinion: [
+    { label: "Columns", href: "/category/opinion" },
+    { label: "Analysis", href: "/category/opinion" },
+    { label: "Editorials", href: "/category/opinion" },
+    { label: "Letters", href: "/category/opinion" },
+  ],
+  esg: [
+    { label: "Climate", href: "/category/esg" },
+    { label: "Green Finance", href: "/category/esg" },
+    { label: "Governance", href: "/category/esg" },
+    { label: "Social Impact", href: "/category/esg" },
+  ],
+  asia: [
+    { label: "Japan", href: "/category/asia" },
+    { label: "China", href: "/category/asia" },
+    { label: "India", href: "/category/asia" },
+    { label: "Southeast Asia", href: "/category/asia" },
+    { label: "Korea", href: "/category/asia" },
+  ],
+};
+
+const items = dropdownItems[slug!] || [];
 ---
 
-<Layout
-  title={`${category.name} — FinanceAsia`}
-  description={`Latest ${category.name} news and analysis from across Asia-Pacific. Real-time coverage of financial markets, economies, and businesses.`}
->
+<Layout title={`${category.name} — FinanceAsia`} description={`Latest ${category.name} news and analysis from across Asia-Pacific. Real-time coverage of financial markets, economies, and businesses.`}>
   <!-- Category hero banner -->
-  <div class="bg-[var(--color-nk-navy)] text-white py-10 px-4 border-b-4 border-[var(--color-nk-red)]">
-    <div class="max-w-screen-xl mx-auto">
+  <div class="bg-nk-navy text-white py-10 px-4 border-b-4 border-nk-red">
+    <div class="max-w-7xl mx-auto">
       <div class="flex items-end justify-between">
         <div>
-          <p class="text-[0.65rem] font-bold uppercase tracking-widest text-[var(--color-nk-red)] mb-2 font-sans">FinanceAsia</p>
+          <p class="text-[0.65rem] font-bold uppercase tracking-widest text-nk-red mb-2 font-sans">FinanceAsia</p>
           <h1 class="text-3xl md:text-4xl font-bold text-white" style="font-family: 'Playfair Display', Georgia, serif;">
             {category.name}
           </h1>
-          <p class="text-white/60 text-sm mt-1.5 font-sans">
-            {categoryArticles.length} stories · Updated {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+          <p class="text-white/80 text-sm mt-1.5 font-sans">
+            {categoryArticles.length} stories · Updated {new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
           </p>
         </div>
-        <nav aria-label="Category navigation" class="hidden md:flex items-center gap-1">
-          {categories.map(cat => (
-            <a
-              href={`/category/${cat.slug}`}
-              class={`px-3 py-1.5 text-xs font-semibold uppercase tracking-wide transition-colors font-sans ${
-                cat.slug === slug
-                  ? 'bg-[var(--color-nk-red)] text-white'
-                  : 'text-white/60 hover:text-white'
-              }`}
-            >
-              {cat.name}
-            </a>
-          ))}
+        <nav aria-label="Category navigation" class="hidden md:flex items-center gap-1.5">
+          {
+            items.map((item) => (
+              <a href={item.href} class="px-3 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors font-sans text-white/90 hover:text-white border border-white/20 hover:border-white/40 hover:bg-white/5 rounded-xs">
+                {item.label}
+              </a>
+            ))
+          }
         </nav>
       </div>
     </div>
   </div>
 
-  <div class="max-w-screen-xl mx-auto px-4 lg:px-6 py-8">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 py-8">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-
       <!-- Articles main column -->
       <div class="lg:col-span-8">
         <!-- Hero article for category -->
-        {heroArticle && (
-          <div class="mb-8 h-72 sm:h-96">
-            <ArticleCard article={heroArticle} variant="hero" loading="eager" />
-          </div>
-        )}
+        {
+          heroArticle && (
+            <div class="mb-8 h-72 sm:h-96">
+              <ArticleCard article={heroArticle} variant="hero" loading="eager" />
+            </div>
+          )
+        }
 
         <!-- Article list -->
         <div class="space-y-6">
-          {otherArticles.length > 0 ? (
-            otherArticles.map(article => (
-              <ArticleCard article={article} variant="list" />
-            ))
-          ) : (
-            <div class="py-16 text-center">
-              <p class="text-[var(--color-nk-gray-400)] font-sans">More articles coming soon.</p>
-            </div>
-          )}
+          {
+            otherArticles.length > 0 ? (
+              otherArticles.map((article) => <ArticleCard article={article} variant="list" />)
+            ) : (
+              <div class="py-16 text-center">
+                <p class="text-nk-gray-400 font-sans">More articles coming soon.</p>
+              </div>
+            )
+          }
         </div>
 
         <!-- Pagination (static) -->
         <div class="mt-10 flex items-center justify-center gap-1.5">
-          <button disabled class="px-4 py-2 text-sm border border-[var(--color-nk-gray-200)] text-[var(--color-nk-gray-300)] font-sans cursor-not-allowed">
-            ← Previous
-          </button>
-          <button class="px-4 py-2 text-sm bg-[var(--color-nk-red)] text-white font-semibold font-sans">1</button>
-          <button class="px-4 py-2 text-sm border border-[var(--color-nk-gray-200)] text-[var(--color-nk-gray-600)] hover:border-[var(--color-nk-red)] font-sans transition-colors">2</button>
-          <button class="px-4 py-2 text-sm border border-[var(--color-nk-gray-200)] text-[var(--color-nk-gray-600)] hover:border-[var(--color-nk-red)] font-sans transition-colors">
-            Next →
-          </button>
+          <button disabled class="px-4 py-2 text-sm border border-nk-gray-200 text-nk-gray-400 font-sans cursor-not-allowed"> ← Previous </button>
+          <button class="px-4 py-2 text-sm bg-nk-red text-white font-semibold font-sans">1</button>
+          <button class="px-4 py-2 text-sm border border-nk-gray-200 text-nk-gray-700 hover:text-nk-red hover:border-nk-red font-sans transition-colors">2</button>
+          <button class="px-4 py-2 text-sm border border-nk-gray-200 text-nk-gray-700 hover:text-nk-red hover:border-nk-red font-sans transition-colors"> Next → </button>
         </div>
       </div>
 
       <!-- Sidebar -->
       <aside class="lg:col-span-4" aria-label="Category sidebar">
         <div class="sticky top-20 space-y-8">
-
           <!-- Latest -->
           <section aria-labelledby="latest-sidebar-heading">
             <SectionHeader id="latest-sidebar-heading" title="Latest Stories" href="/" />
             <div class="mt-4 space-y-5">
-              {latestAll.map(article => (
-                <ArticleCard article={article} variant="card" />
-              ))}
-            </div>
-          </section>
-
-          <!-- Category quick nav -->
-          <section class="bg-[var(--color-nk-gray-100)] border border-[var(--color-nk-gray-200)] p-4" aria-labelledby="sections-nav-heading">
-            <h3 id="sections-nav-heading" class="text-[0.65rem] font-bold uppercase tracking-widest text-[var(--color-nk-gray-500)] mb-3 font-sans">Browse Sections</h3>
-            <div class="grid grid-cols-2 gap-1.5">
-              {categories.map(cat => (
-                <a
-                  href={`/category/${cat.slug}`}
-                  class={`px-3 py-2 text-xs font-semibold uppercase tracking-wide transition-colors font-sans text-center border ${
-                    cat.slug === slug
-                      ? 'bg-[var(--color-nk-red)] text-white border-[var(--color-nk-red)]'
-                      : 'border-[var(--color-nk-gray-300)] text-[var(--color-nk-gray-600)] hover:border-[var(--color-nk-red)] hover:text-[var(--color-nk-red)]'
-                  }`}
-                >
-                  {cat.name}
-                </a>
-              ))}
+              {latestAll.map((article) => <ArticleCard article={article} variant="card" />)}
             </div>
           </section>
         </div>

@@ -4,23 +4,28 @@ import { categories } from '../data/articles';
 
 <footer class="bg-nk-navy text-white mt-12">
   <!-- Subscribe banner -->
-  <div id="subscribe" class="bg-nk-red py-10 px-4">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+  <div id="subscribe" class="bg-nk-red py-10 px-4 shadow-inner relative overflow-hidden">
+    {/* Decorative background accent */}
+    <div class="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-white/5 blur-3xl pointer-events-none"></div>
+    <div class="absolute -left-24 -bottom-24 w-96 h-96 rounded-full bg-black/10 blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
       <div>
         <h2 class="text-xl md:text-2xl font-bold" style="font-family: 'Playfair Display', Georgia, serif;">
           Stay ahead of Asian markets
         </h2>
-        <p class="text-white/80 mt-1 text-sm">Get unlimited access to award-winning finance journalism.</p>
+        <p class="text-white/80 mt-1 text-sm font-sans">Get unlimited access to award-winning finance journalism.</p>
       </div>
+      
       <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
         <input
           type="email"
           placeholder="Your email address"
-          class="flex-1 md:w-64 px-4 py-3 text-nk-gray-800 text-sm font-sans focus:outline-none"
+          class="flex-1 md:w-64 px-4 py-3 text-nk-gray-800 text-sm font-sans focus:outline-hidden focus:ring-2 focus:ring-nk-navy/30 bg-white placeholder-nk-gray-400 transition-all duration-300"
           aria-label="Email for newsletter"
         />
         <button
-          class="bg-nk-navy text-white px-6 py-3 text-sm font-bold uppercase tracking-wide hover:bg-nk-navy-light transition-colors whitespace-nowrap"
+          class="bg-nk-navy text-white px-6 py-3 text-sm font-bold uppercase tracking-wide hover:bg-nk-navy-light transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 whitespace-nowrap cursor-pointer"
         >
           Subscribe Free
         </button>
@@ -34,14 +39,15 @@ import { categories } from '../data/articles';
 
       <!-- Brand column -->
       <div class="lg:col-span-2">
-        <a href="/" class="inline-block mb-4" aria-label="FinanceAsia Home">
+        <a href="/" class="inline-block mb-4 hover:opacity-90 transition-opacity" aria-label="FinanceAsia Home">
           <span class="text-nk-red font-bold text-2xl leading-none" style="font-family: 'Playfair Display', Georgia, serif;">
             Finance<span class="text-white">Asia</span>
           </span>
         </a>
-        <p class="text-white/60 text-sm leading-relaxed mb-5 max-w-sm font-sans">
+        <p class="text-white/60 text-sm leading-relaxed mb-6 max-w-sm font-sans">
           FinanceAsia delivers real-time news, deep analysis, and expert opinion on financial markets, economies, and businesses across the Asia-Pacific region.
         </p>
+        
         <!-- Social links -->
         <div class="flex gap-3">
           {[
@@ -53,7 +59,7 @@ import { categories } from '../data/articles';
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/50 transition-colors"
+              class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-nk-gold-light hover:border-nk-gold-light/60 hover:bg-white/5 transition-all duration-300 hover:shadow-md"
               aria-label={social.name}
             >
               <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
@@ -70,7 +76,10 @@ import { categories } from '../data/articles';
         <ul class="space-y-2.5">
           {categories.slice(0, 4).map(cat => (
             <li>
-              <a href={`/category/${cat.slug}`} class="text-sm text-white/70 hover:text-white transition-colors font-sans">
+              <a 
+                href={`/category/${cat.slug}`} 
+                class="text-sm text-white/70 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block font-sans"
+              >
                 {cat.name}
               </a>
             </li>
@@ -83,7 +92,10 @@ import { categories } from '../data/articles';
         <ul class="space-y-2.5">
           {categories.slice(4).map(cat => (
             <li>
-              <a href={`/category/${cat.slug}`} class="text-sm text-white/70 hover:text-white transition-colors font-sans">
+              <a 
+                href={`/category/${cat.slug}`} 
+                class="text-sm text-white/70 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block font-sans"
+              >
                 {cat.name}
               </a>
             </li>
@@ -96,7 +108,12 @@ import { categories } from '../data/articles';
         <ul class="space-y-2.5">
           {['About Us', 'Editorial Standards', 'Advertise', 'Careers', 'Contact Us', 'Privacy Policy', 'Terms of Use'].map(link => (
             <li>
-              <a href="#" class="text-sm text-white/70 hover:text-white transition-colors font-sans">{link}</a>
+              <a 
+                href="#" 
+                class="text-sm text-white/70 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block font-sans"
+              >
+                {link}
+              </a>
             </li>
           ))}
         </ul>

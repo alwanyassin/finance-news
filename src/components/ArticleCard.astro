@@ -1,177 +1,188 @@
 ---
-import type { Article } from '../data/articles';
-import { timeAgo } from '../data/articles';
+import type { Article } from "../data/articles";
+import { timeAgo } from "../data/articles";
 
 interface Props {
   article: Article;
-  variant?: 'hero' | 'featured' | 'card' | 'list' | 'compact';
-  loading?: 'eager' | 'lazy';
+  variant?: "hero" | "featured" | "card" | "list" | "compact";
+  loading?: "eager" | "lazy";
 }
 
-const { article, variant = 'card', loading = 'lazy' } = Astro.props;
+const { article, variant = "card", loading = "lazy" } = Astro.props;
 ---
 
-{variant === 'hero' && (
-  <article class="article-card group relative bg-[var(--color-nk-navy)] overflow-hidden h-full">
-    <div class="card-image h-full">
-      <img
-        src={`${article.image}?w=1200&q=80&auto=format&fit=crop`}
-        alt={article.imageAlt}
-        class="w-full h-full object-cover opacity-80 group-hover:opacity-90 transition-opacity duration-400"
-        loading={loading}
-        width="1200"
-        height="700"
-      />
-    </div>
-    <!-- Gradient overlay -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-    <!-- Content -->
-    <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-      <div class="flex items-center gap-2 mb-3">
-        <span class="category-tag text-[var(--color-nk-gold-light)]">{article.category}</span>
-        {article.premium && (
-          <span class="text-[0.6rem] font-semibold bg-[var(--color-nk-gold)] text-[var(--color-nk-navy)] px-2 py-0.5 uppercase tracking-wide">
-            Premium
-          </span>
-        )}
+{
+  /* =========================================================================
+    VARIANT: HERO (Large banner card with background image and text overlay)
+    ========================================================================= */
+}
+{
+  variant === "hero" && (
+    <article class="article-card group relative bg-nk-navy overflow-hidden h-full">
+      <div class="card-image h-full">
+        <img
+          src={`${article.image}?w=1200&q=80&auto=format&fit=crop`}
+          alt={article.imageAlt}
+          class="w-full h-full object-cover opacity-80 group-hover:opacity-90 transition-opacity duration-400"
+          loading={loading}
+          width="1200"
+          height="700"
+        />
       </div>
-      <h1 class="text-white font-bold text-xl sm:text-2xl md:text-3xl leading-tight mb-3" style="font-family: 'Playfair Display', Georgia, serif;">
-        <a href={`/article/${article.slug}`} class="hover:underline underline-offset-3 decoration-[var(--color-nk-gold)] decoration-2">
-          {article.title}
-        </a>
-      </h1>
-      <p class="text-white/75 text-sm leading-relaxed hidden sm:block mb-4 line-clamp-2 max-w-2xl font-sans">
-        {article.excerpt}
-      </p>
-      <div class="flex items-center gap-3 text-white/60 text-xs font-sans">
-        <span>By {article.author}</span>
-        <span class="text-white/30">·</span>
-        <span>{timeAgo(article.publishedAt)}</span>
-        <span class="text-white/30">·</span>
-        <span>{article.readTime} min read</span>
-      </div>
-    </div>
-  </article>
-)}
 
-{variant === 'featured' && (
-  <article class="article-card group h-full flex flex-col">
-    <div class="card-image relative overflow-hidden bg-[var(--color-nk-gray-200)] flex-shrink-0">
-      <img
-        src={`${article.image}?w=600&q=80&auto=format&fit=crop`}
-        alt={article.imageAlt}
-        class="w-full h-52 sm:h-48 object-cover"
-        loading={loading}
-        width="600"
-        height="400"
-      />
-      {article.premium && (
-        <span class="absolute top-2 right-2 text-[0.6rem] font-bold bg-[var(--color-nk-gold)] text-[var(--color-nk-navy)] px-2 py-0.5 uppercase tracking-wide">
-          Premium
-        </span>
-      )}
-    </div>
-    <div class="pt-3 flex flex-col flex-1">
-      <span class="category-tag mb-2 block">{article.category}</span>
-      <h2 class="font-bold text-[var(--color-nk-gray-800)] leading-snug mb-2 flex-1" style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.05rem;">
-        <a href={`/article/${article.slug}`} class="hover:text-[var(--color-nk-red)] transition-colors">
-          {article.title}
-        </a>
-      </h2>
-      <div class="flex items-center gap-2 text-[var(--color-nk-gray-500)] text-xs font-sans mt-auto pt-2">
-        <span>{article.author}</span>
-        <span class="text-[var(--color-nk-gray-300)]">·</span>
-        <span>{timeAgo(article.publishedAt)}</span>
-      </div>
-    </div>
-  </article>
-)}
+      {/* Dark gradient overlay to shield white text */}
+      <div class="absolute inset-0 bg-linear-to-t from-black/95 via-black/60 to-transparent" />
 
-{variant === 'card' && (
-  <article class="article-card group flex flex-col border-b border-[var(--color-nk-gray-200)] pb-5">
-    <div class="flex gap-3.5">
-      <div class="flex-1 min-w-0">
-        <span class="category-tag mb-1.5 block">{article.category}</span>
-        <h3 class="font-bold text-[var(--color-nk-gray-800)] leading-snug mb-2" style="font-family: 'Playfair Display', Georgia, serif; font-size: 0.95rem;">
-          <a href={`/article/${article.slug}`} class="hover:text-[var(--color-nk-red)] transition-colors">
+      {/* Overlay Content */}
+      <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="category-tag text-nk-gold-light bg-nk-navy px-2.5 py-0.5 rounded-xs inline-block">{article.category}</span>
+          {article.premium && <span class="text-[0.6rem] font-semibold bg-nk-gold text-nk-navy px-2 py-0.5 uppercase tracking-wide">Premium</span>}
+        </div>
+
+        <h1 class="text-white font-bold text-xl sm:text-2xl md:text-3xl leading-tight mb-3" style="font-family: 'Playfair Display', Georgia, serif;">
+          <a href={`/article/${article.slug}`} class="hover:underline underline-offset-3 decoration-nk-gold decoration-2 transition-all duration-300">
             {article.title}
           </a>
+        </h1>
+
+        <p class="text-white/75 text-sm leading-relaxed hidden sm:block mb-4 line-clamp-2 max-w-2xl font-sans">{article.excerpt}</p>
+
+        <div class="flex items-center gap-3 text-white/60 text-xs font-sans">
+          <span>By {article.author}</span>
+          <span class="text-white/30">·</span>
+          <span>{timeAgo(article.publishedAt)}</span>
+          <span class="text-white/30">·</span>
+          <span>{article.readTime} min read</span>
+        </div>
+      </div>
+    </article>
+  )
+}
+
+{
+  /* =========================================================================
+    VARIANT: FEATURED (Grid card with top image and bottom content area)
+    ========================================================================= */
+}
+{
+  variant === "featured" && (
+    <article class="article-card group h-full flex flex-col">
+      <div class="card-image relative overflow-hidden bg-nk-gray-200 shrink-0">
+        <img src={`${article.image}?w=600&q=80&auto=format&fit=crop`} alt={article.imageAlt} class="w-full h-52 sm:h-48 object-cover" loading={loading} width="600" height="400" />
+        {article.premium && <span class="absolute top-2 right-2 text-[0.6rem] font-bold bg-nk-gold text-nk-navy px-2 py-0.5 uppercase tracking-wide">Premium</span>}
+      </div>
+
+      <div class="pt-3 flex flex-col flex-1">
+        <span class="category-tag mb-2 block">{article.category}</span>
+
+        <h2 class="font-bold text-nk-gray-800 leading-snug mb-2 flex-1 group-hover:text-nk-red transition-colors duration-300" style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.05rem;">
+          <a href={`/article/${article.slug}`}>{article.title}</a>
+        </h2>
+
+        <div class="flex items-center gap-2 text-nk-gray-500 text-xs font-sans mt-auto pt-2">
+          <span>{article.author}</span>
+          <span class="text-nk-gray-300">·</span>
+          <span>{timeAgo(article.publishedAt)}</span>
+        </div>
+      </div>
+    </article>
+  )
+}
+
+{
+  /* =========================================================================
+    VARIANT: CARD (Horizontal compact card with small thumbnail image on right)
+    ========================================================================= */
+}
+{
+  variant === "card" && (
+    <article class="article-card group flex flex-col border-b border-nk-gray-200 pb-5">
+      <div class="flex gap-3.5">
+        <div class="flex-1 min-w-0">
+          <span class="category-tag mb-1.5 block">{article.category}</span>
+
+          <h3 class="font-bold text-nk-gray-800 leading-snug mb-2 group-hover:text-nk-red transition-colors duration-300" style="font-family: 'Playfair Display', Georgia, serif; font-size: 0.95rem;">
+            <a href={`/article/${article.slug}`}>{article.title}</a>
+          </h3>
+
+          <div class="flex items-center gap-2 text-nk-gray-500 text-xs font-sans">
+            {article.premium && (
+              <>
+                <span class="text-[0.6rem] font-bold text-nk-gold uppercase tracking-wide">Premium</span>
+                <span class="text-nk-gray-300">·</span>
+              </>
+            )}
+            <span>{timeAgo(article.publishedAt)}</span>
+            <span class="text-nk-gray-300">·</span>
+            <span>{article.readTime} min</span>
+          </div>
+        </div>
+
+        {article.image && (
+          <div class="card-image shrink-0 w-20 h-20 sm:w-24 sm:h-24 overflow-hidden bg-nk-gray-200">
+            <img src={`${article.image}?w=200&q=75&auto=format&fit=crop`} alt={article.imageAlt} class="w-full h-full object-cover" loading={loading} width="100" height="100" />
+          </div>
+        )}
+      </div>
+    </article>
+  )
+}
+
+{
+  /* =========================================================================
+    VARIANT: LIST (Horizontal standard card with medium image on left)
+    ========================================================================= */
+}
+{
+  variant === "list" && (
+    <article class="article-card group flex gap-4 border-b border-nk-gray-200 pb-5">
+      <div class="card-image shrink-0 w-32 h-24 sm:w-40 sm:h-28 overflow-hidden bg-nk-gray-200">
+        <img src={`${article.image}?w=400&q=80&auto=format&fit=crop`} alt={article.imageAlt} class="w-full h-full object-cover" loading={loading} width="200" height="140" />
+      </div>
+
+      <div class="flex-1 min-w-0">
+        <span class="category-tag mb-1.5 block">{article.category}</span>
+
+        <h3 class="font-bold text-nk-gray-800 leading-snug mb-1.5 group-hover:text-nk-red transition-colors duration-300" style="font-family: 'Playfair Display', Georgia, serif; font-size: 1rem;">
+          <a href={`/article/${article.slug}`}>{article.title}</a>
         </h3>
-        <div class="flex items-center gap-2 text-[var(--color-nk-gray-500)] text-xs font-sans">
+
+        <p class="text-nk-gray-500 text-xs leading-relaxed mb-2 hidden sm:block line-clamp-2 font-sans">{article.excerpt}</p>
+
+        <div class="flex items-center gap-2 text-nk-gray-400 text-xs font-sans">
           {article.premium && (
             <>
-              <span class="text-[0.6rem] font-bold text-[var(--color-nk-gold)] uppercase tracking-wide">Premium</span>
-              <span class="text-[var(--color-nk-gray-300)]">·</span>
+              <span class="text-[0.6rem] font-bold text-nk-gold uppercase tracking-wide">Premium</span>
+              <span>·</span>
             </>
           )}
+          <span>{article.author}</span>
+          <span>·</span>
           <span>{timeAgo(article.publishedAt)}</span>
-          <span class="text-[var(--color-nk-gray-300)]">·</span>
-          <span>{article.readTime} min</span>
         </div>
       </div>
-      {article.image && (
-        <div class="card-image flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 overflow-hidden bg-[var(--color-nk-gray-200)]">
-          <img
-            src={`${article.image}?w=200&q=75&auto=format&fit=crop`}
-            alt={article.imageAlt}
-            class="w-full h-full object-cover"
-            loading={loading}
-            width="100"
-            height="100"
-          />
-        </div>
-      )}
-    </div>
-  </article>
-)}
+    </article>
+  )
+}
 
-{variant === 'list' && (
-  <article class="article-card group flex gap-4 border-b border-[var(--color-nk-gray-200)] pb-5">
-    <div class="card-image flex-shrink-0 w-32 h-24 sm:w-40 sm:h-28 overflow-hidden bg-[var(--color-nk-gray-200)]">
-      <img
-        src={`${article.image}?w=400&q=80&auto=format&fit=crop`}
-        alt={article.imageAlt}
-        class="w-full h-full object-cover"
-        loading={loading}
-        width="200"
-        height="140"
-      />
-    </div>
-    <div class="flex-1 min-w-0">
-      <span class="category-tag mb-1.5 block">{article.category}</span>
-      <h3 class="font-bold text-[var(--color-nk-gray-800)] leading-snug mb-1.5" style="font-family: 'Playfair Display', Georgia, serif; font-size: 1rem;">
-        <a href={`/article/${article.slug}`} class="hover:text-[var(--color-nk-red)] transition-colors">
-          {article.title}
-        </a>
-      </h3>
-      <p class="text-[var(--color-nk-gray-500)] text-xs leading-relaxed mb-2 hidden sm:block line-clamp-2 font-sans">
-        {article.excerpt}
-      </p>
-      <div class="flex items-center gap-2 text-[var(--color-nk-gray-400)] text-xs font-sans">
-        {article.premium && (
-          <>
-            <span class="text-[0.6rem] font-bold text-[var(--color-nk-gold)] uppercase tracking-wide">Premium</span>
-            <span>·</span>
-          </>
-        )}
-        <span>{article.author}</span>
-        <span>·</span>
-        <span>{timeAgo(article.publishedAt)}</span>
+{
+  /* =========================================================================
+    VARIANT: COMPACT (Minimal vertical list item with simple text link)
+    ========================================================================= */
+}
+{
+  variant === "compact" && (
+    <article class="group flex items-start gap-3 py-3 border-b border-nk-gray-100 last:border-0">
+      <div class="shrink-0 w-5 h-5 rounded-full bg-nk-red mt-0.5 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+        <span class="w-1.5 h-1.5 rounded-full bg-white" />
       </div>
-    </div>
-  </article>
-)}
-
-{variant === 'compact' && (
-  <article class="group flex items-start gap-3 py-3 border-b border-[var(--color-nk-gray-100)] last:border-0">
-    <div class="flex-shrink-0 w-5 h-5 rounded-full bg-[var(--color-nk-red)] mt-0.5 flex items-center justify-center">
-      <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
-    </div>
-    <div>
-      <h4 class="text-sm font-semibold text-[var(--color-nk-gray-700)] leading-snug group-hover:text-[var(--color-nk-red)] transition-colors" style="font-family: 'Playfair Display', Georgia, serif;">
-        <a href={`/article/${article.slug}`}>{article.title}</a>
-      </h4>
-      <span class="text-xs text-[var(--color-nk-gray-400)] font-sans">{timeAgo(article.publishedAt)}</span>
-    </div>
-  </article>
-)}
+      <div>
+        <h4 class="text-sm font-semibold text-nk-gray-700 leading-snug group-hover:text-nk-red transition-colors duration-300" style="font-family: 'Playfair Display', Georgia, serif;">
+          <a href={`/article/${article.slug}`}>{article.title}</a>
+        </h4>
+        <span class="text-xs text-nk-gray-400 font-sans">{timeAgo(article.publishedAt)}</span>
+      </div>
+    </article>
+  )
+}

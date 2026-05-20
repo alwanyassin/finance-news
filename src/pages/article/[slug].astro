@@ -28,22 +28,22 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
   article={true}
 >
   <!-- Article breadcrumb -->
-  <div class="bg-[var(--color-nk-gray-100)] border-b border-[var(--color-nk-gray-200)]">
-    <div class="max-w-screen-xl mx-auto px-4 lg:px-6 py-2.5">
+  <div class="bg-nk-gray-100 border-b border-nk-gray-200">
+    <div class="max-w-7xl mx-auto px-4 lg:px-6 py-2.5">
       <nav aria-label="Breadcrumb">
-        <ol class="flex items-center gap-1.5 text-xs text-[var(--color-nk-gray-500)] font-sans">
-          <li><a href="/" class="hover:text-[var(--color-nk-red)] transition-colors">Home</a></li>
-          <li class="text-[var(--color-nk-gray-300)]">›</li>
-          <li><a href={`/category/${article.categorySlug}`} class="hover:text-[var(--color-nk-red)] transition-colors">{article.category}</a></li>
-          <li class="text-[var(--color-nk-gray-300)]">›</li>
-          <li class="text-[var(--color-nk-gray-700)] truncate max-w-xs">{article.title}</li>
+        <ol class="flex items-center gap-1.5 text-xs text-nk-gray-500 font-sans">
+          <li><a href="/" class="hover:text-nk-red transition-colors">Home</a></li>
+          <li class="text-nk-gray-300">›</li>
+          <li><a href={`/category/${article.categorySlug}`} class="hover:text-nk-red transition-colors">{article.category}</a></li>
+          <li class="text-nk-gray-300">›</li>
+          <li class="text-nk-gray-700 truncate max-w-xs">{article.title}</li>
         </ol>
       </nav>
     </div>
   </div>
 
   <!-- Article main -->
-  <div class="max-w-screen-xl mx-auto px-4 lg:px-6 py-8">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 py-8">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
 
       <!-- Article content -->
@@ -53,19 +53,19 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
         <div class="flex items-center gap-2 mb-4">
           <a
             href={`/category/${article.categorySlug}`}
-            class="category-tag hover:text-[var(--color-nk-red-dark)] transition-colors"
+            class="category-tag hover:text-nk-red-dark transition-colors"
             itemprop="articleSection"
           >
             {article.category}
           </a>
           {article.region && (
             <>
-              <span class="text-[var(--color-nk-gray-300)]">·</span>
-              <span class="text-[0.65rem] font-semibold text-[var(--color-nk-gray-400)] uppercase tracking-wide font-sans">{article.region}</span>
+              <span class="text-nk-gray-300">·</span>
+              <span class="text-[0.65rem] font-semibold text-nk-gray-400 uppercase tracking-wide font-sans">{article.region}</span>
             </>
           )}
           {article.premium && (
-            <span class="ml-auto text-[0.6rem] font-bold bg-[var(--color-nk-gold)] text-[var(--color-nk-navy)] px-2 py-0.5 uppercase tracking-wide">
+            <span class="ml-auto text-[0.6rem] font-bold bg-nk-gold text-nk-navy px-2 py-0.5 uppercase tracking-wide">
               Premium
             </span>
           )}
@@ -73,7 +73,7 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
 
         <!-- Headline -->
         <h1
-          class="text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--color-nk-navy)] leading-tight mb-4"
+          class="text-2xl sm:text-3xl md:text-4xl font-bold text-nk-navy leading-tight mb-4"
           style="font-family: 'Playfair Display', Georgia, serif;"
           itemprop="headline"
         >
@@ -81,19 +81,19 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
         </h1>
 
         <!-- Excerpt/Deck -->
-        <p class="text-[var(--color-nk-gray-600)] text-base md:text-lg leading-relaxed mb-5 font-body border-l-2 border-[var(--color-nk-red)] pl-4">
+        <p class="text-nk-gray-600 text-base md:text-lg leading-relaxed mb-5 font-body border-l-2 border-nk-red pl-4">
           {article.excerpt}
         </p>
 
         <!-- Byline -->
-        <div class="flex items-center justify-between py-4 border-y border-[var(--color-nk-gray-200)] mb-6">
+        <div class="flex items-center justify-between py-4 border-y border-nk-gray-200 mb-6">
           <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-full bg-[var(--color-nk-navy)] flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+            <div class="w-9 h-9 rounded-full bg-nk-navy flex items-center justify-center text-white font-bold text-sm shrink-0">
               {article.author.charAt(0)}
             </div>
             <div>
-              <p class="text-sm font-semibold text-[var(--color-nk-gray-800)] font-sans" itemprop="author">{article.author}</p>
-              <div class="flex items-center gap-1.5 text-xs text-[var(--color-nk-gray-400)] font-sans">
+              <p class="text-sm font-semibold text-nk-gray-800 font-sans" itemprop="author">{article.author}</p>
+              <div class="flex items-center gap-1.5 text-xs text-nk-gray-400 font-sans">
                 <time itemprop="datePublished" datetime={article.publishedAt}>{formatDate(article.publishedAt)}</time>
                 <span>·</span>
                 <span>{article.readTime} min read</span>
@@ -103,7 +103,7 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
           <!-- Share buttons -->
           <div class="flex items-center gap-2">
             <button
-              class="p-2 border border-[var(--color-nk-gray-200)] text-[var(--color-nk-gray-500)] hover:border-[var(--color-nk-gray-400)] hover:text-[var(--color-nk-gray-700)] transition-colors rounded-sm"
+              class="p-2 border border-nk-gray-200 text-nk-gray-500 hover:border-nk-gray-400 hover:text-nk-gray-700 transition-colors rounded-sm"
               aria-label="Share on Twitter"
               onclick={`window.open('https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(Astro.url.href)}','_blank')`}
             >
@@ -112,7 +112,7 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
               </svg>
             </button>
             <button
-              class="p-2 border border-[var(--color-nk-gray-200)] text-[var(--color-nk-gray-500)] hover:border-[var(--color-nk-gray-400)] hover:text-[var(--color-nk-gray-700)] transition-colors rounded-sm"
+              class="p-2 border border-nk-gray-200 text-nk-gray-500 hover:border-nk-gray-400 hover:text-nk-gray-700 transition-colors rounded-sm"
               aria-label="Share on LinkedIn"
               onclick={`window.open('https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url.href)}','_blank')`}
             >
@@ -122,7 +122,7 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
             </button>
             <button
               id="copy-link-btn"
-              class="p-2 border border-[var(--color-nk-gray-200)] text-[var(--color-nk-gray-500)] hover:border-[var(--color-nk-gray-400)] hover:text-[var(--color-nk-gray-700)] transition-colors rounded-sm"
+              class="p-2 border border-nk-gray-200 text-nk-gray-500 hover:border-nk-gray-400 hover:text-nk-gray-700 transition-colors rounded-sm"
               aria-label="Copy link"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -144,7 +144,7 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
             height="700"
           />
           {article.imageCaption && (
-            <figcaption class="text-xs text-[var(--color-nk-gray-400)] mt-2 px-4 sm:px-0 font-sans italic">
+            <figcaption class="text-xs text-nk-gray-400 mt-2 px-4 sm:px-0 font-sans italic">
               {article.imageCaption}
             </figcaption>
           )}
@@ -178,26 +178,26 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
 
           <!-- Paywall overlay for premium articles -->
           {article.premium && (
-            <div class="mt-[-200px] pt-[200px] bg-gradient-to-t from-white via-white/95 to-transparent relative z-10">
-              <div class="bg-white border border-[var(--color-nk-gray-200)] p-6 text-center shadow-sm">
-                <div class="inline-block w-12 h-12 rounded-full bg-[var(--color-nk-red)] text-white flex items-center justify-center mb-3 mx-auto">
+            <div class="mt-[-200px] pt-[200px] bg-linear-to-t from-white via-white/95 to-transparent relative z-10">
+              <div class="bg-white border border-nk-gray-200 p-6 text-center shadow-sm">
+                <div class="inline-flex w-12 h-12 rounded-full bg-nk-red text-white items-center justify-center mb-3 mx-auto">
                   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                   </svg>
                 </div>
-                <h3 class="text-lg font-bold text-[var(--color-nk-navy)] mb-2" style="font-family: 'Playfair Display', Georgia, serif;">
+                <h3 class="text-lg font-bold text-nk-navy mb-2" style="font-family: 'Playfair Display', Georgia, serif;">
                   This is a Premium article
                 </h3>
-                <p class="text-sm text-[var(--color-nk-gray-500)] mb-4 font-sans max-w-sm mx-auto">
+                <p class="text-sm text-nk-gray-500 mb-4 font-sans max-w-sm mx-auto">
                   Subscribe to FinanceAsia for unlimited access to Asia's most trusted financial journalism.
                 </p>
                 <a
                   href="#subscribe"
-                  class="inline-block bg-[var(--color-nk-red)] text-white px-8 py-3 text-sm font-bold uppercase tracking-wide hover:bg-[var(--color-nk-red-dark)] transition-colors"
+                  class="inline-block bg-nk-red text-white px-8 py-3 text-sm font-bold uppercase tracking-wide hover:bg-nk-red-dark transition-colors"
                 >
                   Subscribe Now
                 </a>
-                <p class="text-xs text-[var(--color-nk-gray-400)] mt-3 font-sans">Already a subscriber? <a href="#" class="text-[var(--color-nk-red)]">Sign in</a></p>
+                <p class="text-xs text-nk-gray-400 mt-3 font-sans">Already a subscriber? <a href="#" class="text-nk-red">Sign in</a></p>
               </div>
             </div>
           )}
@@ -205,12 +205,12 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
 
         <!-- Tags -->
         {article.tags && article.tags.length > 0 && (
-          <div class="mt-8 pt-5 border-t border-[var(--color-nk-gray-200)]">
-            <span class="text-[0.65rem] font-bold uppercase tracking-widest text-[var(--color-nk-gray-400)] font-sans mr-2">Topics:</span>
+          <div class="mt-8 pt-5 border-t border-nk-gray-200">
+            <span class="text-[0.65rem] font-bold uppercase tracking-widest text-nk-gray-400 font-sans mr-2">Topics:</span>
             {article.tags.map(tag => (
               <a
                 href={`#`}
-                class="inline-block mr-2 mb-2 px-3 py-1 text-xs border border-[var(--color-nk-gray-300)] text-[var(--color-nk-gray-600)] hover:border-[var(--color-nk-red)] hover:text-[var(--color-nk-red)] transition-colors font-sans"
+                class="inline-block mr-2 mb-2 px-3 py-1 text-xs border border-nk-gray-300 text-nk-gray-600 hover:border-nk-red hover:text-nk-red transition-colors font-sans"
               >
                 {tag}
               </a>
@@ -220,13 +220,13 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
 
         <!-- Author bio -->
         {article.authorBio && (
-          <div class="mt-8 p-5 bg-[var(--color-nk-gray-100)] border-l-4 border-[var(--color-nk-navy)] flex gap-4">
-            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-[var(--color-nk-navy)] flex items-center justify-center text-white font-bold text-lg">
+          <div class="mt-8 p-5 bg-nk-gray-100 border-l-4 border-nk-navy flex gap-4">
+            <div class="shrink-0 w-12 h-12 rounded-full bg-nk-navy flex items-center justify-center text-white font-bold text-lg">
               {article.author.charAt(0)}
             </div>
             <div>
-              <p class="font-bold text-[var(--color-nk-navy)] text-sm font-sans">{article.author}</p>
-              <p class="text-xs text-[var(--color-nk-gray-500)] mt-1 font-sans leading-relaxed">{article.authorBio}</p>
+              <p class="font-bold text-nk-navy text-sm font-sans">{article.author}</p>
+              <p class="text-xs text-nk-gray-500 mt-1 font-sans leading-relaxed">{article.authorBio}</p>
             </div>
           </div>
         )}
@@ -264,8 +264,8 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
 
   <!-- Related articles below -->
   {related.length > 0 && (
-    <section class="border-t border-[var(--color-nk-gray-200)] bg-[var(--color-nk-gray-100)] py-10" aria-labelledby="more-stories-heading">
-      <div class="max-w-screen-xl mx-auto px-4 lg:px-6">
+    <section class="border-t border-nk-gray-200 bg-nk-gray-100 py-10" aria-labelledby="more-stories-heading">
+      <div class="max-w-7xl mx-auto px-4 lg:px-6">
         <SectionHeader id="more-stories-heading" title={`More in ${article.category}`} href={`/category/${article.categorySlug}`} />
         <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {related.map(a => (
