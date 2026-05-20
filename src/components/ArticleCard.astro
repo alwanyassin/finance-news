@@ -25,6 +25,7 @@ const { article, variant = "card", loading = "lazy" } = Astro.props;
           alt={article.imageAlt}
           class="w-full h-full object-cover opacity-80 group-hover:opacity-90 transition-opacity duration-400"
           loading={loading}
+          fetchpriority={loading === "eager" ? "high" : undefined}
           width="1200"
           height="700"
         />

@@ -31,6 +31,7 @@ const opinionArticles = getArticlesByCategory('opinion').slice(0, 1);
                   alt={heroArticle.imageAlt}
                   class="w-full h-[220px] object-cover group-hover:scale-105 transition-transform duration-300"
                   loading="eager"
+                  fetchpriority="high"
                   width="800"
                   height="220"
                 />
@@ -84,6 +85,7 @@ const opinionArticles = getArticlesByCategory('opinion').slice(0, 1);
                   alt={heroArticle.imageAlt}
                   class="w-full h-[180px] md:h-[210px] lg:h-[230px] object-cover group-hover:scale-105 transition-transform duration-300"
                   loading="eager"
+                  fetchpriority="high"
                   width="600"
                   height="230"
                 />

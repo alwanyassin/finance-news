@@ -139,6 +139,7 @@ const allOtherArticles = articles.filter(a => a.id !== article.id).slice(0, 4);
             class="w-full object-cover max-h-[460px] sm:rounded-xs sm:shadow-sm border border-nk-gray-200"
             itemprop="url contentUrl"
             loading="eager"
+            fetchpriority="high"
             width="1200"
             height="700"
           />
