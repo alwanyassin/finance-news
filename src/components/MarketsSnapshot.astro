@@ -1,0 +1,26 @@
+---
+---
+<section aria-labelledby="markets-snapshot-heading" class="bg-nk-gray-100 border border-nk-gray-200 p-4">
+  <h3 id="markets-snapshot-heading" class="text-[0.65rem] font-bold uppercase tracking-widest text-nk-gray-600 mb-3 font-sans">Markets Snapshot</h3>
+  <div class="space-y-2">
+    {[
+      { name: 'Nikkei 225', value: '38,420.12', change: '+2.3%', up: true },
+      { name: 'Hang Seng', value: '18,210.44', change: '+1.8%', up: true },
+      { name: 'KOSPI', value: '2,740.88', change: '+1.5%', up: true },
+      { name: 'Brent Crude', value: '$82.40', change: '+0.7%', up: true },
+      { name: 'USD/JPY', value: '148.20', change: '-0.95%', up: false },
+      { name: 'Gold', value: '$2,318', change: '+0.3%', up: true },
+    ].map(item => (
+      <div class="flex items-center justify-between py-1.5 border-b border-nk-gray-200 last:border-0">
+        <span class="text-xs font-semibold text-nk-gray-700 font-sans">{item.name}</span>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold text-nk-gray-800 font-sans">{item.value}</span>
+          <span class={`text-[0.65rem] font-bold font-sans ${item.up ? 'market-up' : 'market-down'}`}>
+            {item.up ? '▲' : '▼'} {item.change}
+          </span>
+        </div>
+      </div>
+    ))}
+  </div>
+  <p class="text-[0.6rem] text-nk-gray-400 mt-2 font-sans">Data as of May 15, 2026 · 15 min delay</p>
+</section>

@@ -1,0 +1,92 @@
+---
+import SectionHeader from './SectionHeader.astro';
+---
+<section class="max-w-7xl mx-auto px-4 lg:px-6 py-8 mb-4" aria-label="Opinion and Most Read">
+  <div class="flex flex-col lg:flex-row gap-8 lg:gap-10">
+    
+    <!-- Left Column: Opinion -->
+    <div class="flex-1 flex flex-col">
+      <div class="mb-5">
+        <SectionHeader title="Opinion" />
+      </div>
+
+      <!-- Featured Opinion Card -->
+      <article class="bg-nk-gray-200 border-t-2 border-nk-navy mb-5 group cursor-pointer hover:bg-nk-gray-100 transition-colors flex flex-col md:flex-row shadow-sm">
+        <div class="p-5 md:p-6 flex-1 flex flex-col justify-between order-2 md:order-1">
+          <div>
+            <h3 class="text-xl md:text-[1.65rem] font-bold font-display text-nk-gray-800 leading-tight mb-3 group-hover:text-nk-red transition-colors">
+              Cricket diplomacy is helping India and Pakistan play on a sticky wicket
+            </h3>
+            <p class="text-[0.9rem] md:text-[0.95rem] text-nk-gray-600 font-sans leading-relaxed line-clamp-2 md:line-clamp-3">
+              Sporting thaw is easing tensions after last year's military confrontation
+            </p>
+          </div>
+          <div class="flex items-center gap-3 mt-6">
+            <img src="https://i.pravatar.cc/150?u=salman" alt="Salman Rafi Sheikh" class="w-10 h-10 rounded-full grayscale border border-nk-gray-300 bg-nk-gray-200" loading="lazy" />
+            <span class="font-bold text-[0.8rem] text-nk-red uppercase tracking-wide">Salman Rafi Sheikh</span>
+          </div>
+        </div>
+        <div class="order-1 md:order-2 md:w-[45%] relative aspect-video md:aspect-auto overflow-hidden bg-nk-gray-200">
+          <img src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=600&q=80&auto=format&fit=crop" alt="Cricket Match" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+        </div>
+      </article>
+
+      <!-- 3 Small Opinion Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 flex-1">
+        {[
+          {
+            title: "A global competitor to the F-35 is slowly emerging",
+            author: "Eoin Drea",
+            avatar: "https://i.pravatar.cc/150?u=eoin"
+          },
+          {
+            title: "The Iran war is rewiring the geopolitics of tech in Asia",
+            author: "Abishur Prakash",
+            avatar: "https://i.pravatar.cc/150?u=abishur"
+          },
+          {
+            title: "China's demographic decline is not the disaster many fear",
+            author: "Lauren Johnston",
+            avatar: "https://i.pravatar.cc/150?u=lauren"
+          }
+        ].map(op => (
+          <article class="bg-nk-gray-200 border-t border-nk-gray-300 p-4 lg:p-5 group cursor-pointer hover:bg-nk-gray-100 transition-colors flex flex-col h-full shadow-sm">
+            <h3 class="text-[1.1rem] lg:text-[1.15rem] font-medium font-display text-nk-gray-800 leading-snug mb-5 group-hover:text-nk-red transition-colors line-clamp-4">
+              {op.title}
+            </h3>
+            <div class="flex items-center gap-3 mt-auto pt-2">
+              <img src={op.avatar} alt={op.author} class="w-8 h-8 rounded-full grayscale border border-nk-gray-300 bg-nk-gray-200" loading="lazy" />
+              <span class="font-bold text-[0.75rem] text-nk-red uppercase tracking-wide">{op.author}</span>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <!-- Right Column: Most Read -->
+    <aside class="lg:w-[260px] xl:w-[280px] shrink-0 pt-8 lg:pt-0 flex flex-col">
+      <div class="mb-4">
+        <SectionHeader title="Most Read" size="sm" />
+      </div>
+      <ol class="flex flex-col flex-1">
+        {[
+          "Brief US-China calm masks simmering anger and distrust",
+          "Index providers reshape Asian financial markets with exacting standards",
+          "Sara Duterte trial, Takaichi-Lee summit, Samsung unionists go on strike",
+          "China investor gobbles up 120-year-old German sewing machine maker",
+          "Japan's Sumitomo Metal, Sojitz look to Southeast Asia for rare earths"
+        ].map((title, i) => (
+          <li class="flex-1 flex items-center gap-4 py-2 border-b border-nk-gray-200 group cursor-pointer min-h-[70px]">
+            <span class="font-display font-black text-3xl leading-none text-black group-hover:text-nk-red transition-colors mt-0.5 shrink-0 w-5 text-center">
+              {i + 1}
+            </span>
+            <h4 class="font-display font-medium text-base text-nk-gray-800 leading-snug group-hover:text-nk-red transition-colors">
+              {title}
+            </h4>
+          </li>
+        ))}
+      </ol>
+    </aside>
+
+  </div>
+</section>

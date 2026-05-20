@@ -1,0 +1,104 @@
+---
+import SectionHeader from './SectionHeader.astro';
+---
+<section class="max-w-7xl mx-auto px-4 lg:px-6 py-10" aria-label="Trump-Xi Summit">
+  <div class="flex flex-col lg:flex-row gap-0">
+    
+    <!-- Left Column: Trump-Xi Content -->
+    <div class="flex-1 lg:pr-5 pb-5 lg:pb-0">
+      <div class="mb-4">
+        <SectionHeader title="Trump-Xi Summit" />
+      </div>
+
+      <!-- Featured Big Card -->
+      <article class="group relative flex flex-col md:flex-row bg-nk-navy text-white overflow-hidden mb-6 hover:shadow-lg transition-shadow duration-300 md:h-[230px]">
+        <div class="p-6 flex-1 flex flex-col justify-center order-2 md:order-1 md:w-[50%] border-t-4 border-t-nk-red md:border-t-0 md:border-l-4 md:border-l-nk-red">
+          <span class="text-[0.65rem] font-bold uppercase tracking-widest text-nk-gold-light mb-2 lg:mb-3 text-center md:text-left block font-sans">COMMENT</span>
+          <h3 class="text-2xl md:text-[1.5rem] font-bold leading-tight mb-3 lg:mb-4 text-center md:text-left font-display group-hover:text-nk-gray-200 transition-colors">
+            <a href="#" class="after:absolute after:inset-0 focus-visible:ring-2 focus-visible:ring-nk-red focus-visible:outline-none">Brief US-China calm masks simmering anger and distrust</a>
+          </h3>
+          <p class="text-[0.8rem] md:text-sm text-white/80 leading-relaxed text-center md:text-left font-sans mx-auto md:mx-0 line-clamp-2 md:line-clamp-2">
+            Trump's Beijing visit highlights both countries' dilemma in gaining upper hand
+          </p>
+        </div>
+        <div class="order-1 md:order-2 md:w-[50%] relative aspect-video md:aspect-auto overflow-hidden bg-nk-gray-200">
+          <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=800&q=80&auto=format&fit=crop" alt="Trump and Xi" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" loading="lazy" width="800" height="450" />
+        </div>
+      </article>
+
+      <!-- 3 Vertical Cards Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-px bg-nk-gray-200">
+        {[
+          {
+            title: "China says Xi and Trump agreed to spur trade by lowering some tariffs",
+            image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
+            alt: "Trading floor screens",
+          },
+          {
+            title: "Taiwan arms sale in focus as Trump insists he gave no ground to Xi",
+            image: "https://images.unsplash.com/photo-1486325212027-8081e485255e",
+            alt: "Skyline and construction",
+          },
+          {
+            title: "Trump-Xi summit more symbol than substance, political experts say",
+            image: "https://images.unsplash.com/photo-1559136555-9303baea8ebd",
+            alt: "Financial district skyline",
+          }
+        ].map((card, index) => (
+          <article class={`group bg-white p-2.5 sm:p-3 flex flex-col relative ${index === 2 ? 'col-span-2 sm:col-span-1 border-b border-nk-gray-200 sm:border-b-0' : ''}`} aria-label={card.title}>
+            <a href="#" tabindex="-1" aria-hidden="true" class={`block mb-2 overflow-hidden bg-nk-gray-200 aspect-video ${index === 2 ? 'hidden sm:block' : ''}`}>
+              <img src={`${card.image}?w=400&q=80&auto=format&fit=crop`} alt={card.alt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" width="400" height="225" />
+            </a>
+            <span class="category-tag mb-1 block">Trump-Xi Summit</span>
+            <h3 class="text-base sm:text-lg font-bold text-nk-gray-800 leading-snug mb-2 group-hover:text-nk-red transition-colors" style="font-family: 'Playfair Display', Georgia, serif;">
+              <a href="#" class="after:absolute after:inset-0 focus-visible:ring-2 focus-visible:ring-nk-red focus-visible:outline-none">{card.title}</a>
+            </h3>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <!-- Right Column: Promo Banner -->
+    <div class="lg:w-[260px] xl:w-[280px] shrink-0 lg:pl-0 pt-8 lg:pt-0">
+      <div class="bg-nk-navy-light w-full h-full flex flex-col items-center justify-between p-6 text-center text-white relative">
+        <!-- Main Content -->
+        <div class="w-full">
+          <!-- Logo -->
+          <div class="font-sans font-light text-2xl tracking-wide mb-8 flex items-center justify-center">
+            FINANCE<span class="font-bold ml-1">Asia</span>
+          </div>
+          
+          <!-- Phone Image (mockup composite) -->
+          <div class="relative w-full max-w-[150px] mx-auto aspect-[1/1.6] mb-8">
+            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&q=80&auto=format&fit=crop" alt="Mobile App screen 1" class="absolute inset-0 w-full h-full object-cover rounded-2xl shadow-2xl -rotate-6 border-[6px] border-white/90 z-10" loading="lazy" />
+            <img src="https://images.unsplash.com/photo-1616469829581-73993eb86b02?w=400&q=80&auto=format&fit=crop" alt="Mobile App screen 2" class="absolute top-2 left-6 w-full h-full object-cover rounded-2xl shadow-xl rotate-12 border-[6px] border-white/60 z-0 opacity-80" loading="lazy" />
+          </div>
+
+          <p class="text-[1.05rem] font-body mb-8 leading-snug px-3 text-white">
+            Stay ahead with our exclusive insights on Asia
+          </p>
+        </div>
+
+        <!-- Buttons -->
+        <div class="w-full relative">
+          <!-- Ribbon Button -->
+          <div class="relative w-[calc(100%+2rem)] -ml-4 mt-2 mb-4">
+            <a href="#" class="block w-full bg-nk-navy hover:bg-nk-navy-light text-white text-[0.82rem] font-bold py-3 px-2 transition-colors relative z-20 shadow-md">
+              Full access to website & app
+            </a>
+            <!-- Left Fold -->
+            <div class="absolute left-0 -bottom-2 w-0 h-0 border-t-8 border-r-12 border-t-nk-navy-light border-r-transparent z-10"></div>
+            <!-- Right Fold -->
+            <div class="absolute right-0 -bottom-2 w-0 h-0 border-t-8 border-l-12 border-t-nk-navy-light border-l-transparent z-10"></div>
+          </div>
+          
+          <!-- Subscribe Button -->
+          <a href="#" class="block w-full bg-transparent border border-white/40 hover:bg-white/10 text-white text-[0.85rem] font-bold py-2.5 px-4 transition-colors">
+            Subscribe now
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

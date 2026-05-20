@@ -1,0 +1,150 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+
+interface Article {
+  title: string;
+  time: string;
+  href: string;
+  isFeatured?: boolean;
+}
+
+interface LocationItem {
+  location: string;
+  image: string;
+  imageAlt: string;
+  articles: Article[];
+}
+
+const locationData: LocationItem[] = [
+  {
+    location: "China",
+    image: "https://images.unsplash.com/photo-1547989453-11e67ffb3885?w=600&q=80&auto=format&fit=crop",
+    imageAlt: "Beijing Great Wall architecture",
+    articles: [
+      { title: "Xi hosts Putin in Beijing on heels of Trump summit, eyeing energy deals", time: "44 minutes ago", href: "#", isFeatured: true },
+      { title: "Chinese complaint highlights 'widespread' Indonesia business concern", time: "4 hours ago", href: "#" }
+    ]
+  },
+  {
+    location: "Japan",
+    image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&q=80&auto=format&fit=crop",
+    imageAlt: "Tokyo pagoda tower and skyline",
+    articles: [
+      { title: "Sweden's Saab seeks a bigger role in Japan's defense buildup", time: "1 hour ago", href: "#", isFeatured: true },
+      { title: "Japan's big cities lose luster with foreign tourists", time: "6 hours ago", href: "#" }
+    ]
+  },
+  {
+    location: "India",
+    image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&q=80&auto=format&fit=crop",
+    imageAlt: "Taj Mahal landmark in India",
+    articles: [
+      { title: "India faces LPG gap of 400,000 barrels a day as energy crisis goes on", time: "1 hour ago", href: "#", isFeatured: true },
+      { title: "International court backs Pakistan's position on Indus Waters Treaty", time: "2 hours ago", href: "#" }
+    ]
+  },
+  {
+    location: "Singapore",
+    image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=600&q=80&auto=format&fit=crop",
+    imageAlt: "Marina Bay Sands Singapore skyline",
+    articles: [
+      { title: "Tokyo supports NEC-Docomo open network in Singapore to counter China rivals", time: "1 hour ago", href: "#", isFeatured: true },
+      { title: "Singapore's small-cap stocks soar, defying Middle East worries", time: "2 hours ago", href: "#" }
+    ]
+  },
+  {
+    location: "Philippines",
+    image: "https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?w=600&q=80&auto=format&fit=crop",
+    imageAlt: "Manila finance district",
+    articles: [
+      { title: "Philippine digital banks struggle to find their mojo", time: "10 minutes ago", href: "#", isFeatured: true },
+      { title: "Marcos orders 10% cut to Philippine government expenses to ease crisis", time: "5 hours ago", href: "#" }
+    ]
+  },
+  {
+    location: "Indonesia",
+    image: "https://images.unsplash.com/photo-1501179691627-eeaa65ea017c?w=600&q=80&auto=format&fit=crop",
+    imageAlt: "Indonesia landscape and water temple",
+    articles: [
+      { title: "Chinese complaint highlights 'widespread' Indonesia business concern", time: "4 hours ago", href: "#", isFeatured: true },
+      { title: "Indonesia's South China Sea fisheries get Japanese support", time: "7 hours ago", href: "#" }
+    ]
+  },
+  {
+    location: "Thailand",
+    image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=600&q=80&auto=format&fit=crop",
+    imageAlt: "Bangkok traditional temple pagoda",
+    articles: [
+      { title: "Thailand's Q1 GDP growth picks up, bucking trend among ASEAN peers", time: "2 hours ago", href: "#", isFeatured: true },
+      { title: "Thai oil group PTT's profit up 10% as Mideast crisis lifts revenue", time: "8 hours ago", href: "#" }
+    ]
+  },
+  {
+    location: "Malaysia",
+    image: "https://images.unsplash.com/photo-1548013146-72479768bada?w=600&q=80&auto=format&fit=crop",
+    imageAlt: "Petronas Towers Kuala Lumpur skyline",
+    articles: [
+      { title: "SkyeChip soars in IPO at open as Malaysia bets on chip design", time: "2 hours ago", href: "#", isFeatured: true },
+      { title: "Vietnam unveils AI law regulating ChatGPT-like tools", time: "3 hours ago", href: "#" }
+    ]
+  }
+];
+---
+
+<section class="max-w-7xl mx-auto px-4 lg:px-6 py-6" aria-label="News by Location">
+  <div class="mb-5">
+    <SectionHeader title="News by Location" />
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    {locationData.map((section) => (
+      <div class="flex flex-col bg-white border border-nk-gray-200">
+        <!-- Location Image Header -->
+        <div class="relative overflow-hidden aspect-video bg-nk-gray-200">
+          <img
+            src={section.image}
+            alt={section.imageAlt}
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            loading="lazy"
+          />
+          <!-- Dark overlay for text readability -->
+          <div class="absolute inset-0 bg-linear-to-b from-black/80 via-black/35 to-transparent"></div>
+          <div class="absolute top-3.5 left-3.5 text-white">
+            <h3 class="font-sans font-black text-[0.82rem] uppercase tracking-wider">
+              {section.location}
+            </h3>
+            <div class="border-b-[3px] border-white w-8 mt-1.5"></div>
+          </div>
+        </div>
+
+        <!-- Article List -->
+        <div class="p-4 flex-1 flex flex-col justify-between">
+          <div class="divide-y divide-nk-gray-200">
+            {section.articles.map((art) => (
+              <div class="py-3 first:pt-0 last:pb-0">
+                <a
+                  href={art.href}
+                  class={`group block leading-snug hover:text-nk-red transition-colors duration-150 ${
+                    art.isFeatured
+                      ? "font-display font-bold text-base text-nk-gray-800"
+                      : "font-display font-semibold text-base text-nk-gray-700"
+                  }`}
+                >
+                  {art.title}
+                </a>
+                {art.time && (
+                  <span class="flex items-center gap-1 text-[0.65rem] text-nk-gray-500 font-sans mt-2">
+                    <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    {art.time}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,122 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+
+interface Article {
+  title: string;
+  href: string;
+  isFeatured?: boolean;
+  time?: string;
+}
+
+interface TrendingItem {
+  topic: string;
+  image: string;
+  imageAlt: string;
+  articles: Article[];
+}
+
+const trendingData: TrendingItem[] = [
+  {
+    topic: "Trade War",
+    image: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=600&q=80&auto=format&fit=crop",
+    imageAlt: "Cows in pasture at sunset",
+    articles: [
+      { title: "US farmers warily welcome stabilization of trade with China", href: "#", isFeatured: true },
+      { title: "Brief US-China calm masks simmering anger and distrust", href: "#" },
+      { title: "China says Xi and Trump agreed to spur trade by lowering some tariffs", href: "#" },
+      { title: "Trump-Xi summit: How the US president's China visit unfolded", href: "#" }
+    ]
+  },
+  {
+    topic: "Supply Chain",
+    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80&auto=format&fit=crop",
+    imageAlt: "Cables and logistics wires",
+    articles: [
+      { title: "Japan's Fujikura to raise US output of fiber optic cable for data centers", href: "#", isFeatured: true },
+      { title: "Asia's agri-tech startups offer answers to Iran war supply chain crunch", href: "#" },
+      { title: "Exclusive: Intel urges PC makers to use cutting-edge CPUs amid shortage", href: "#" },
+      { title: "Vietnam dairy giant invests in US after securing patent", href: "#" }
+    ]
+  },
+  {
+    topic: "Interview",
+    image: "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?w=600&q=80&auto=format&fit=crop",
+    imageAlt: "Corporate meeting interview setting",
+    articles: [
+      { title: "Japan's DBJ eyes longer investment horizon to support reshoring", href: "#", isFeatured: true },
+      { title: "Brazil 'ready' to ramp up oil exports to Japan: foreign minister", href: "#" },
+      { title: "Carlyle sees more investment opportunities in Japan: CEO Harvey Schwartz", href: "#" },
+      { title: "Marcos orders 10% cut to Philippine government expenses to ease crisis", href: "#" }
+    ]
+  },
+  {
+    topic: "Artificial Intelligence",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80&auto=format&fit=crop",
+    imageAlt: "Modern tech skyscraper",
+    articles: [
+      { title: "Samsung union says strike to go ahead after mediation efforts fail", href: "#", isFeatured: true, time: "27 minutes ago" },
+      { title: "SkyeChip soars in IPO at open as Malaysia bets on chip design", href: "#", time: "2 hours ago" },
+      { title: "Vietnam unveils AI law regulating ChatGPT-like tools", href: "#", time: "3 hours ago" },
+      { title: "Google says new AI model could save companies billions in token costs", href: "#" }
+    ]
+  }
+];
+---
+
+<section class="max-w-7xl mx-auto px-4 lg:px-6 py-6" aria-label="Trending Topics">
+  <div class="mb-5">
+    <SectionHeader title="Trending Topics" />
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    {trendingData.map((section) => (
+      <div class="flex flex-col bg-white border border-nk-gray-200">
+        <!-- Topic Image Header -->
+        <div class="relative overflow-hidden aspect-video bg-nk-gray-200">
+          <img
+            src={section.image}
+            alt={section.imageAlt}
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            loading="lazy"
+          />
+          <!-- Dark overlay at the top to ensure white text readability -->
+          <div class="absolute inset-0 bg-linear-to-b from-black/80 via-black/35 to-transparent"></div>
+          <div class="absolute top-3.5 left-3.5 text-white">
+            <h3 class="font-sans font-black text-[0.82rem] uppercase tracking-wider">
+              {section.topic}
+            </h3>
+            <div class="border-b-[3px] border-white w-8 mt-1.5"></div>
+          </div>
+        </div>
+
+        <!-- Article List -->
+        <div class="p-4 flex-1 flex flex-col justify-between">
+          <div class="divide-y divide-nk-gray-200">
+            {section.articles.map((art) => (
+              <div class="py-3 first:pt-0 last:pb-0">
+                <a
+                  href={art.href}
+                  class={`group block leading-snug hover:text-nk-red transition-colors duration-150 ${
+                    art.isFeatured
+                      ? "font-display font-bold text-base text-nk-gray-800"
+                      : "font-display font-semibold text-base text-nk-gray-700"
+                  }`}
+                >
+                  {art.title}
+                </a>
+                {art.time && (
+                  <span class="flex items-center gap-1 text-[0.65rem] text-nk-gray-500 font-sans mt-2">
+                    <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    {art.time}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

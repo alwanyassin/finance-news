@@ -1,0 +1,246 @@
+---
+import { articles, getFeaturedArticles, getArticlesByCategory, timeAgo } from '../data/articles';
+
+const featured = getFeaturedArticles();
+const heroArticle = featured[0]!;
+const gridArticles = articles.slice(1, 7);
+const gridRow1 = gridArticles.slice(0, 3);
+const gridRow2 = gridArticles.slice(3, 6);
+const opinionArticles = getArticlesByCategory('opinion').slice(0, 1);
+---
+
+<section aria-label="Top stories">
+  <div class="max-w-7xl mx-auto px-2 md:px-4 lg:px-6 py-0 md:py-4">
+    <div class="flex flex-col lg:flex-row gap-0">
+
+      <!-- ── LEFT 3/4: Top Stories ── -->
+      <div class="flex-1 lg:pr-5 pb-5 lg:pb-0">
+
+        <!-- Top featured article -->
+        <article class="group px-2 pb-2 mb-2 border-b border-nk-gray-200" aria-label={heroArticle.title}>
+
+          <!-- MOBILE: Gambar fullscreen di atas, teks di bawah -->
+          <!-- DESKTOP: flex row — teks 50% kiri, gambar 50% kanan -->
+          <div class="flex flex-col sm:flex-row sm:gap-5">
+
+            <!-- Mobile-only image (full width, shown only on mobile) -->
+            <div class="sm:hidden mb-3 -mx-4 overflow-hidden bg-nk-gray-200">
+              <a href={`/article/${heroArticle.slug}`} tabindex="-1" aria-hidden="true">
+                <img
+                  src={`${heroArticle.image}?w=800&q=85&auto=format&fit=crop`}
+                  alt={heroArticle.imageAlt}
+                  class="w-full h-[220px] object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="eager"
+                  width="800"
+                  height="220"
+                />
+              </a>
+            </div>
+
+            <!-- Text column -->
+            <div class="flex-1 min-w-0 sm:w-1/2 order-2 sm:order-1">
+              <span class="category-tag mb-2 block">{heroArticle.category}</span>
+              <h1
+                class="font-bold text-nk-gray-800 leading-tight mb-2 group-hover:text-nk-red transition-colors"
+                style="font-family: 'Playfair Display', Georgia, serif; font-size: clamp(1.1rem, 2vw, 1.45rem);"
+              >
+                <a href={`/article/${heroArticle.slug}`}>{heroArticle.title}</a>
+              </h1>
+              <p class="text-nk-gray-600 text-sm leading-relaxed mb-3 hidden sm:block font-sans line-clamp-3">
+                {heroArticle.excerpt}
+              </p>
+              <!-- Sub-links (related bullets) -->
+              <ul class="space-y-1.5 hidden md:block mb-3">
+                {gridRow1.slice(0, 2).map(a => (
+                  <li class="flex items-start gap-2">
+                    <span class="shrink-0 mt-1.5 w-0 h-0 border-t-[5px] border-t-transparent border-b-[5px] border-b-transparent border-l-[7px] border-l-nk-red"></span>
+                    <a
+                      href={`/article/${a.slug}`}
+                      class="text-xs text-nk-gray-700 hover:text-nk-red transition-colors leading-snug font-sans line-clamp-2"
+                    >
+                      {a.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <!-- Mobile metadata (hidden on desktop) -->
+              <div class="flex sm:hidden items-center justify-end gap-2 text-xs text-nk-gray-500 font-sans mt-3">
+                {heroArticle.premium && (
+                  <span class="text-[0.6rem] font-bold text-nk-gold uppercase tracking-wide">Premium ·</span>
+                )}
+                <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span>{timeAgo(heroArticle.publishedAt)}</span>
+                <span>·</span>
+                <span>{heroArticle.readTime} min read</span>
+              </div>
+            </div>
+
+            <!-- Desktop image column (hidden on mobile, shown sm+) — 50% width -->
+            <div class="hidden sm:block sm:w-1/2 shrink-0 self-start order-1 sm:order-2">
+              <a href={`/article/${heroArticle.slug}`} tabindex="-1" aria-hidden="true" class="block overflow-hidden bg-nk-gray-200">
+                <img
+                  src={`${heroArticle.image}?w=700&q=85&auto=format&fit=crop`}
+                  alt={heroArticle.imageAlt}
+                  class="w-full h-[180px] md:h-[210px] lg:h-[230px] object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="eager"
+                  width="600"
+                  height="230"
+                />
+              </a>
+              
+              <!-- Desktop metadata (hidden on mobile, right-aligned) -->
+              <div class="hidden sm:flex items-center justify-end gap-2 text-xs text-nk-gray-500 font-sans mt-2">
+                {heroArticle.premium && (
+                  <span class="text-[0.6rem] font-bold text-nk-gold uppercase tracking-wide">Premium ·</span>
+                )}
+                <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span>{timeAgo(heroArticle.publishedAt)}</span>
+                <span>·</span>
+                <span>{heroArticle.readTime} min read</span>
+              </div>
+            </div>
+
+          </div>
+        </article>
+
+        <!-- 6 article cards: grid-cols-2 mobile (3 baris) → grid-cols-3 desktop (2 baris) -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-px bg-nk-gray-200">
+          {[...gridRow1, ...gridRow2].map(article => (
+            <article class="group bg-white p-2.5 sm:p-3 flex flex-col" aria-label={article.title}>
+              <a href={`/article/${article.slug}`} tabindex="-1" aria-hidden="true"
+                 class="block mb-2 overflow-hidden bg-nk-gray-200 aspect-video">
+                <img
+                  src={`${article.image}?w=400&q=80&auto=format&fit=crop`}
+                  alt={article.imageAlt}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                  width="400"
+                  height="225"
+                />
+              </a>
+              <span class="category-tag mb-1 block">{article.category}</span>
+              <h3
+                class="text-base md:text-lg font-bold text-nk-gray-800 leading-snug mb-2 group-hover:text-nk-red transition-colors"
+                style="font-family: 'Playfair Display', Georgia, serif;"
+              >
+                <a href={`/article/${article.slug}`}>{article.title}</a>
+              </h3>
+              <div class="flex items-center gap-1 text-[0.62rem] text-nk-gray-500 font-sans mt-auto">
+                <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span>Updated {timeAgo(article.publishedAt)}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <!-- ── RIGHT 1/4: Widget Panel ── -->
+      <aside class="lg:w-[260px] xl:w-[280px] shrink-0 lg:pl-0 pt-4 lg:pt-0 border-t border-nk-gray-200 lg:border-t-0" aria-label="Editorial widgets">
+        <div class="h-full flex flex-col gap-2">
+
+          <!-- Widget 1: (like "Policy Asia") -->
+          <div class="flex-1 flex flex-col justify-center bg-nk-navy-light py-4">
+            <h3 class="text-base font-bold text-nk-gray-100 mb-2.5 font-sans tracking-wide text-center uppercase">Asia Insights</h3>
+            {(() => {
+              const pick = articles.find(a => a.categorySlug === 'economy') ?? articles[1]!;
+              return (
+                <article class="group" aria-label={pick.title}>
+                  <p class="text-base font-semibold text-nk-gray-100 leading-snug mb-2 group-hover:text-nk-red transition-colors text-center"
+                    style="font-family: 'Playfair Display', Georgia, serif;">
+                    <a href={`/article/${pick.slug}`}>{pick.title}</a>
+                  </p>
+                  <a href={`/article/${pick.slug}`} tabindex="-1" aria-hidden="true" class="block overflow-hidden bg-nk-gray-200 relative">
+                    <img
+                      src={`${pick.image}?w=300&q=80&auto=format&fit=crop`}
+                      alt={pick.imageAlt}
+                      class="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                      width="280"
+                      height="160"
+                    />
+                  </a>
+                  <p class="text-base text-nk-gray-100 font-sans mt-2 px-4 text-center line-clamp-3">{pick.excerpt}</p>
+                </article>
+              );
+            })()}
+          </div>
+
+          <hr class="border-t border-nk-gray-200 shrink-0 m-0" />
+
+          <!-- Widget 2: Opinion -->
+          <div class="flex-1 flex flex-col justify-center bg-nk-gray-200 p-4">
+            {(() => {
+              const op = opinionArticles[0] ?? articles[8]!;
+              return (
+                <article class="group flex flex-col justify-center" aria-label={op.title}>
+                  <span class="category-tag mb-1.5 block text-center">{op.category}</span>
+                  <p class="text-base font-semibold text-nk-gray-800 leading-snug mb-2.5 group-hover:text-nk-red transition-colors text-center"
+                    style="font-family: 'Playfair Display', Georgia, serif;">
+                    <a href={`/article/${op.slug}`}>{op.title}</a>
+                  </p>
+                  <!-- Author row -->
+                  <div class="flex items-center gap-2 justify-center">
+                    <div class="w-7 h-7 rounded-full bg-nk-navy flex items-center justify-center text-white text-xs font-bold shrink-0">
+                      {op.author.charAt(0)}
+                    </div>
+                    <span class="text-xs text-nk-gray-600 font-sans">{op.author}</span>
+                  </div>
+                </article>
+              );
+            })()}
+          </div>
+
+          <hr class="border-t border-nk-gray-200 shrink-0 m-0" />
+
+          <!-- Widget 3: Video / Featured Insight -->
+          <div class="flex-1 flex flex-col justify-center">
+            <div class="bg-nk-navy text-white p-0 overflow-hidden flex-1 flex flex-col justify-center relative min-h-[160px]">
+              <p class="text-[0.6rem] font-bold uppercase tracking-widest text-white/60 text-center py-1.5 border-b border-white/10 font-sans relative z-10 bg-nk-navy">Video</p>
+              {(() => {
+                const vid = articles[4] ?? articles[0]!;
+                return (
+                  <a href={`/article/${vid.slug}`} class="group block relative flex-1 min-h-[100px]">
+                    <img
+                      src={`${vid.image}?w=300&q=80&auto=format&fit=crop`}
+                      alt={vid.imageAlt}
+                      class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                      loading="lazy"
+                    />
+                    <!-- Play button overlay -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/40 flex items-center justify-center group-hover:bg-white/30 transition-colors">
+                        <svg class="w-4 h-4 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </a>
+                );
+              })()}
+              {(() => {
+                const vid = articles[4] ?? articles[0]!;
+                return (
+                  <div class="p-2.5 relative z-10 bg-nk-navy">
+                    <p class="text-base font-semibold text-white leading-snug text-center"
+                      style="font-family: 'Playfair Display', Georgia, serif;">
+                      <a href={`/article/${vid.slug}`} class="hover:text-nk-gold-light transition-colors">
+                        FinanceAsia Film: {vid.title.split(':')[0]}
+                      </a>
+                    </p>
+                  </div>
+                );
+              })()}
+            </div>
+          </div>
+
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

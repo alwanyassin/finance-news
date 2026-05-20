@@ -1,0 +1,103 @@
+---
+import SectionHeader from './SectionHeader.astro';
+---
+<section class="max-w-7xl mx-auto px-4 lg:px-6 py-6 mb-8" aria-label="Life and Arts">
+  <div class="pt-4">
+    <div class="flex flex-col lg:flex-row gap-8 lg:gap-10">
+      
+      <!-- Left Column: Life & Arts Content -->
+      <div class="flex-1 lg:pr-0 pb-5 lg:pb-0">
+        <div class="mb-4">
+          <SectionHeader title="Life & Arts" />
+        </div>
+
+        <!-- Featured Big Card -->
+        <article class="group relative flex flex-col md:flex-row bg-nk-navy text-white overflow-hidden mb-6 hover:shadow-lg transition-shadow duration-300 md:h-[230px]">
+          <div class="p-6 flex-1 flex flex-col justify-center order-2 md:order-1 md:w-[50%] border-t-4 border-t-nk-red md:border-t-0 md:border-l-4 md:border-l-nk-red">
+            <span class="text-[0.65rem] font-bold uppercase tracking-widest text-nk-gold-light mb-2 lg:mb-3 text-center md:text-left block font-sans">ARTS</span>
+            <h3 class="text-2xl md:text-[1.5rem] font-bold leading-tight mb-3 lg:mb-4 text-center md:text-left font-display group-hover:text-nk-gray-200 transition-colors">
+              <a href="#" class="after:absolute after:inset-0 focus-visible:ring-2 focus-visible:ring-nk-red focus-visible:outline-none">Japan-Kyrgyz team finds ruins linked to China's only female emperor</a>
+            </h3>
+            <p class="text-[0.8rem] md:text-sm text-white/80 leading-relaxed text-center md:text-left font-sans mx-auto md:mx-0 line-clamp-2 md:line-clamp-2">
+              Kyrgyzstan site believed to be temple built during Tang Dynasty's westward push
+            </p>
+          </div>
+          <div class="order-1 md:order-2 md:w-[50%] relative aspect-video md:aspect-auto overflow-hidden bg-nk-gray-200">
+            <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80&auto=format&fit=crop" alt="Ruins site" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" loading="lazy" width="800" height="450" />
+          </div>
+        </article>
+
+        <!-- 3 Vertical Cards Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-px bg-nk-gray-200">
+          {[
+            {
+              title: "Trekking the wild Himalayas on the Manaslu Circuit",
+              cat: "Destinations",
+              image: "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=400&q=80&auto=format&fit=crop",
+              alt: "Himalayas",
+            },
+            {
+              title: "Footloose in Luang Prabang: Two days in the heart of Laos",
+              cat: "Destinations",
+              image: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&q=80&auto=format&fit=crop",
+              alt: "Market in Laos",
+            },
+            {
+              title: "How Singapore designs for togetherness",
+              cat: "Tea Leaves",
+              image: "https://images.unsplash.com/photo-1555899434-94d1368aa7af?w=400&q=80&auto=format&fit=crop",
+              alt: "Singapore architecture",
+            }
+          ].map((card, index) => (
+            <article class={`group bg-white p-2.5 sm:p-3 flex flex-col relative ${index === 2 ? 'col-span-2 sm:col-span-1 border-b border-nk-gray-200 sm:border-b-0' : ''}`} aria-label={card.title}>
+              <a href="#" tabindex="-1" aria-hidden="true" class={`block mb-2 overflow-hidden bg-nk-gray-200 aspect-video ${index === 2 ? 'hidden sm:block' : ''}`}>
+                <img src={card.image} alt={card.alt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" width="400" height="225" />
+              </a>
+              <span class="category-tag mb-1 block">{card.cat}</span>
+              <h3 class="text-base sm:text-lg font-bold text-nk-gray-800 leading-snug mb-2 group-hover:text-nk-red transition-colors" style="font-family: 'Playfair Display', Georgia, serif;">
+                <a href="#" class="after:absolute after:inset-0 focus-visible:ring-2 focus-visible:ring-nk-red focus-visible:outline-none">{card.title}</a>
+              </h3>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right Column: Market Data -->
+      <aside class="lg:w-[260px] xl:w-[280px] shrink-0 bg-nk-gray-100 p-2 border border-nk-gray-200">
+        <div class="mb-4">
+          <SectionHeader title="Market Data" size="sm" />
+        </div>
+        <ul class="flex flex-col text-sm border-b border-nk-gray-200">
+          {[
+            { name: 'Nikkei Asia300i', val: '3,118.07', diff: '-1.64', pct: '-0.05%' },
+            { name: 'Nikkei 225', val: '60,815.95', diff: '-593.34', pct: '-0.97%' },
+            { name: 'Shanghai Comp.', val: '4,131.53', diff: '-3.86', pct: '-0.09%' },
+            { name: 'Hang Seng', val: '25,658.35', diff: '-304.38', pct: '-1.17%' },
+            { name: 'Singapore STI', val: '4,980.09', diff: '-8.99', pct: '-0.18%' },
+            { name: 'Sensex', val: '75,311.27', diff: '+73.28', pct: '+0.09%' },
+            { name: 'Dow Jones Ind.', val: '49,526.17', diff: '-537.29', pct: '-1.07%' },
+            { name: 'USD/JPY', val: '158.85', diff: '+0.41', pct: '+0.25%' },
+            { name: 'USD/CNY', val: '6.80', diff: '-0.01', pct: '-0.07%' },
+          ].map((row) => {
+            const isPos = row.diff.startsWith('+');
+            const colorClass = isPos ? 'market-up' : 'market-down';
+            return (
+              <li class="flex items-center justify-between py-[11px] border-t border-nk-gray-200 font-sans">
+                <span class="font-display font-bold text-sm text-black tracking-tight">{row.name}</span>
+                <div class="flex items-center gap-1 text-right font-sans">
+                  <span class="text-nk-gray-600 text-[0.75rem] w-[50px]">{row.val}</span>
+                  <span class={`${colorClass} text-[0.7rem] w-[45px]`}>{row.diff}</span>
+                  <span class={`${colorClass} text-[0.7rem] w-[40px]`}>{row.pct}</span>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+        <div class="text-right mt-2 text-[0.65rem] text-nk-gray-500 font-sans italic">
+          * Data delayed by at least 15 minutes
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
