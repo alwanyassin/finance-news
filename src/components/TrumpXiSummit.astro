@@ -1,7 +1,7 @@
 ---
 import SectionHeader from './SectionHeader.astro';
 ---
-<section class="max-w-7xl mx-auto px-4 lg:px-6 py-10" aria-label="Trump-Xi Summit">
+<section class="max-w-7xl mx-auto px-4 lg:px-6 py-8 md:py-10" aria-label="Trump-Xi Summit">
   <div class="flex flex-col lg:flex-row gap-0">
     
     <!-- Left Column: Trump-Xi Content -->
@@ -50,7 +50,7 @@ import SectionHeader from './SectionHeader.astro';
               <img src={`${card.image}?w=400&q=80&auto=format&fit=crop`} alt={card.alt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" width="400" height="225" />
             </a>
             <span class="category-tag mb-1 block">Trump-Xi Summit</span>
-            <h3 class="text-base sm:text-lg font-bold text-nk-gray-800 leading-snug mb-2 group-hover:text-nk-red transition-colors" style="font-family: 'Playfair Display', Georgia, serif;">
+            <h3 class="text-base sm:text-lg font-bold text-nk-gray-800 leading-snug mb-2 group-hover:text-nk-red transition-colors font-display">
               <a href="#" class="after:absolute after:inset-0 focus-visible:ring-2 focus-visible:ring-nk-red focus-visible:outline-none">{card.title}</a>
             </h3>
           </article>

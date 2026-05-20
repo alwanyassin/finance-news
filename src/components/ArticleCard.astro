@@ -40,7 +40,7 @@ const { article, variant = "card", loading = "lazy" } = Astro.props;
           {article.premium && <span class="text-[0.6rem] font-semibold bg-nk-gold text-nk-navy px-2 py-0.5 uppercase tracking-wide">Premium</span>}
         </div>
 
-        <h1 class="text-white font-bold text-xl sm:text-2xl md:text-3xl leading-tight mb-3" style="font-family: 'Playfair Display', Georgia, serif;">
+        <h1 class="text-white font-bold text-xl sm:text-2xl md:text-3xl leading-tight mb-3 font-display">
           <a href={`/article/${article.slug}`} class="hover:underline underline-offset-3 decoration-nk-gold decoration-2 transition-all duration-300">
             {article.title}
           </a>
@@ -76,7 +76,7 @@ const { article, variant = "card", loading = "lazy" } = Astro.props;
       <div class="pt-3 flex flex-col flex-1">
         <span class="category-tag mb-2 block">{article.category}</span>
 
-        <h2 class="font-bold text-nk-gray-800 leading-snug mb-2 flex-1 group-hover:text-nk-red transition-colors duration-300" style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.05rem;">
+        <h2 class="font-bold text-nk-gray-800 leading-snug mb-2 flex-1 group-hover:text-nk-red transition-colors duration-300 font-display text-base sm:text-lg">
           <a href={`/article/${article.slug}`}>{article.title}</a>
         </h2>
 
@@ -102,7 +102,7 @@ const { article, variant = "card", loading = "lazy" } = Astro.props;
         <div class="flex-1 min-w-0">
           <span class="category-tag mb-1.5 block">{article.category}</span>
 
-          <h3 class="font-bold text-nk-gray-800 leading-snug mb-2 group-hover:text-nk-red transition-colors duration-300" style="font-family: 'Playfair Display', Georgia, serif; font-size: 0.95rem;">
+          <h3 class="font-bold text-nk-gray-800 leading-snug mb-2 group-hover:text-nk-red transition-colors duration-300 font-display text-sm sm:text-base">
             <a href={`/article/${article.slug}`}>{article.title}</a>
           </h3>
 
@@ -144,7 +144,7 @@ const { article, variant = "card", loading = "lazy" } = Astro.props;
       <div class="flex-1 min-w-0">
         <span class="category-tag mb-1.5 block">{article.category}</span>
 
-        <h3 class="font-bold text-nk-gray-800 leading-snug mb-1.5 group-hover:text-nk-red transition-colors duration-300" style="font-family: 'Playfair Display', Georgia, serif; font-size: 1rem;">
+        <h3 class="font-bold text-nk-gray-800 leading-snug mb-1.5 group-hover:text-nk-red transition-colors duration-300 font-display text-base sm:text-lg">
           <a href={`/article/${article.slug}`}>{article.title}</a>
         </h3>
 
@@ -178,7 +178,7 @@ const { article, variant = "card", loading = "lazy" } = Astro.props;
         <span class="w-1.5 h-1.5 rounded-full bg-white" />
       </div>
       <div>
-        <h4 class="text-sm font-semibold text-nk-gray-700 leading-snug group-hover:text-nk-red transition-colors duration-300" style="font-family: 'Playfair Display', Georgia, serif;">
+        <h4 class="text-sm font-bold text-nk-gray-700 leading-snug group-hover:text-nk-red transition-colors duration-300 font-sans">
           <a href={`/article/${article.slug}`}>{article.title}</a>
         </h4>
         <span class="text-xs text-nk-gray-500 font-sans">{timeAgo(article.publishedAt)}</span>

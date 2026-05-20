@@ -10,7 +10,7 @@ const opinionArticles = getArticlesByCategory('opinion').slice(0, 1);
 ---
 
 <section aria-label="Top stories">
-  <div class="max-w-7xl mx-auto px-2 md:px-4 lg:px-6 py-0 md:py-4">
+  <div class="max-w-7xl mx-auto px-4 lg:px-6 py-0 md:py-4">
     <div class="flex flex-col lg:flex-row gap-0">
 
       <!-- ── LEFT 3/4: Top Stories ── -->
@@ -41,8 +41,7 @@ const opinionArticles = getArticlesByCategory('opinion').slice(0, 1);
             <div class="flex-1 min-w-0 sm:w-1/2 order-2 sm:order-1">
               <span class="category-tag mb-2 block">{heroArticle.category}</span>
               <h1
-                class="font-bold text-nk-gray-800 leading-tight mb-2 group-hover:text-nk-red transition-colors"
-                style="font-family: 'Playfair Display', Georgia, serif; font-size: clamp(1.1rem, 2vw, 1.45rem);"
+                class="font-bold text-nk-gray-800 leading-tight mb-2 group-hover:text-nk-red transition-colors font-display text-[clamp(1.1rem,2vw,1.45rem)]"
               >
                 <a href={`/article/${heroArticle.slug}`}>{heroArticle.title}</a>
               </h1>
@@ -124,8 +123,7 @@ const opinionArticles = getArticlesByCategory('opinion').slice(0, 1);
               </a>
               <span class="category-tag mb-1 block">{article.category}</span>
               <h3
-                class="text-base md:text-lg font-bold text-nk-gray-800 leading-snug mb-2 group-hover:text-nk-red transition-colors"
-                style="font-family: 'Playfair Display', Georgia, serif;"
+                class="text-base md:text-lg font-bold text-nk-gray-800 leading-snug mb-2 group-hover:text-nk-red transition-colors font-display"
               >
                 <a href={`/article/${article.slug}`}>{article.title}</a>
               </h3>
@@ -151,8 +149,7 @@ const opinionArticles = getArticlesByCategory('opinion').slice(0, 1);
               const pick = articles.find(a => a.categorySlug === 'economy') ?? articles[1]!;
               return (
                 <article class="group" aria-label={pick.title}>
-                  <p class="text-base font-semibold text-nk-gray-100 leading-snug mb-2 group-hover:text-nk-red transition-colors text-center"
-                    style="font-family: 'Playfair Display', Georgia, serif;">
+                  <p class="text-base font-semibold text-nk-gray-100 leading-snug mb-2 group-hover:text-nk-red transition-colors text-center font-display">
                     <a href={`/article/${pick.slug}`}>{pick.title}</a>
                   </p>
                   <a href={`/article/${pick.slug}`} tabindex="-1" aria-hidden="true" class="block overflow-hidden bg-nk-gray-200 relative">
@@ -180,8 +177,7 @@ const opinionArticles = getArticlesByCategory('opinion').slice(0, 1);
               return (
                 <article class="group flex flex-col justify-center" aria-label={op.title}>
                   <span class="category-tag mb-1.5 block text-center">{op.category}</span>
-                  <p class="text-base font-semibold text-nk-gray-800 leading-snug mb-2.5 group-hover:text-nk-red transition-colors text-center"
-                    style="font-family: 'Playfair Display', Georgia, serif;">
+                  <p class="text-base font-semibold text-nk-gray-800 leading-snug mb-2.5 group-hover:text-nk-red transition-colors text-center font-display">
                     <a href={`/article/${op.slug}`}>{op.title}</a>
                   </p>
                   <!-- Author row -->
@@ -227,8 +223,7 @@ const opinionArticles = getArticlesByCategory('opinion').slice(0, 1);
                 const vid = articles[4] ?? articles[0]!;
                 return (
                   <div class="p-2.5 relative z-10 bg-nk-navy">
-                    <p class="text-base font-semibold text-white leading-snug text-center"
-                      style="font-family: 'Playfair Display', Georgia, serif;">
+                    <p class="text-base font-semibold text-white leading-snug text-center font-display">
                       <a href={`/article/${vid.slug}`} class="hover:text-nk-gold-light transition-colors">
                         FinanceAsia Film: {vid.title.split(':')[0]}
                       </a>

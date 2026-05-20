@@ -1,7 +1,7 @@
 ---
 import SectionHeader from './SectionHeader.astro';
 ---
-<section class="max-w-7xl mx-auto px-4 lg:px-6 py-6 mb-8" aria-label="Life and Arts">
+<section class="max-w-7xl mx-auto px-4 lg:px-6 py-8 md:py-10" aria-label="Life and Arts">
   <div class="pt-4">
     <div class="flex flex-col lg:flex-row gap-8 lg:gap-10">
       
@@ -54,7 +54,7 @@ import SectionHeader from './SectionHeader.astro';
                 <img src={card.image} alt={card.alt} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" width="400" height="225" />
               </a>
               <span class="category-tag mb-1 block">{card.cat}</span>
-              <h3 class="text-base sm:text-lg font-bold text-nk-gray-800 leading-snug mb-2 group-hover:text-nk-red transition-colors" style="font-family: 'Playfair Display', Georgia, serif;">
+              <h3 class="text-base sm:text-lg font-bold text-nk-gray-800 leading-snug mb-2 group-hover:text-nk-red transition-colors font-display">
                 <a href="#" class="after:absolute after:inset-0 focus-visible:ring-2 focus-visible:ring-nk-red focus-visible:outline-none">{card.title}</a>
               </h3>
             </article>
@@ -83,7 +83,7 @@ import SectionHeader from './SectionHeader.astro';
             const colorClass = isPos ? 'market-up' : 'market-down';
             return (
               <li class="flex items-center justify-between py-[11px] border-t border-nk-gray-200 font-sans">
-                <span class="font-display font-bold text-sm text-black tracking-tight">{row.name}</span>
+                <span class="font-sans font-bold text-xs text-nk-gray-800 tracking-tight">{row.name}</span>
                 <div class="flex items-center gap-1 text-right font-sans">
                   <span class="text-nk-gray-600 text-[0.75rem] w-[50px]">{row.val}</span>
                   <span class={`${colorClass} text-[0.7rem] w-[45px]`}>{row.diff}</span>
